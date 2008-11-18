@@ -12,6 +12,7 @@
 
 //gmcs gothenburg.cs db_operations.cs asset_provider.cs -r:Mono.Data.Sqlite.dll  `pkg-config --libs ndesk-dbus-1.0` `pkg-config --libs ndesk-dbus-glib-1.0`
 
+
 using System;
 //using System.Data;
 using Mono.Data.Sqlite;
