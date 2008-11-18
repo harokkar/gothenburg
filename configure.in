@@ -1,0 +1,41 @@
+AC_INIT(gothenburg, 0.0.1, cebuzz@gmail.com)
+#AC_CONFIG_SRCDIR(src/gothenburg.cs)
+AM_INIT_AUTOMAKE(gothenburg, 0.0.1)
+AC_CONFIG_HEADER(config.h)
+AC_PROG_INSTALL
+
+CS="C#"
+
+AC_PATH_PROG(GMCS, gmcs)
+if test "x$GMCS" = "x" ; then
+  AC_MSG_ERROR([Can't find "gmcs" in your PATH])
+fi
+
+AC_SUBST(GMCS)
+
+#Check dependencies
+dnl gtk-sharp
+GTKSHARP_REQUIRED_VERSION=0.18
+PKG_CHECK_MODULES(GTKSHARP, gtk-sharp-2.0 >= $GTKSHARP_REQUIRED_VERSION)
+
+dnl DBus
+DBUS_REQUIRED_VERSION=0.4
+DBUS_GLIB_REQUIRED_VERSION=0.3
+PKG_CHECK_MODULES(DBUS, ndesk-dbus-1.0 >= $DBUS_REQUIRED_VERSION ndesk-dbus-glib-1.0 >= $DBUS_GLIB_REQUIRED_VERSION)
+AC_SUBST(DBUS_LIBS)
+
+dnl NUnit (required for unit tests)
+PKG_CHECK_MODULES(NUNIT, nunit, HAVE_NUNIT="yes", HAVE_NUNIT="no")
+AM_CONDITIONAL(HAVE_NUNIT, test "$HAVE_NUNIT" = "yes")
+AC_SUBST(NUNIT_LIBS)
+AC_PATH_PROG(NUNIT, nunit-console)
+
+
+AC_PROG_MAKE_SET
+                       
+dnl read Makefile.in and write Makefile
+AC_OUTPUT([\
+Makefile \
+src/Makefile \
+test/Makefile \
+])

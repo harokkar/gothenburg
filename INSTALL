@@ -1,0 +1,10 @@
+To build type:
+
+  ./configure && make && make install
+
+
+To run:
+
+  gothenburg
+
+

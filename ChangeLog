@@ -1,0 +1,22 @@
+2008-11-12  Clemens N. Buss  <cebuzz@gmail.com>
+
+	* configure.in
+	* Makefile.am, also in src/ and test/:
+	Added build process
+
+	* test/db_operationsTests.cs
+	* test/Makefile.am
+	* report.sh:
+	Added rudimentary Profiling and Code Coverage support as well as a
+	trivial Unit Test to setup the framework
+
+2008-11-12  Clemens N. Buss  <cebuzz@gmail.com>
+	* src/Makefile.am:
+	Applied Henrik Sandklef's patch for make all target
+
+2008-11-12  Clemens N. Buss  <cebuzz@gmail.com>
+
+	* src/asset_provider.cs
+	* src/db_operations.cs
+	* src/gothenburg.cs:
+	First classes, interfaces and "features" working, like database handling and the defintion of asset providers

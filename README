@@ -1,0 +1,3 @@
+To create code coverage, profiling and unit test reports, do: 
+
+  ./report.sh
