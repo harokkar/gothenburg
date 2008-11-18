@@ -23,13 +23,13 @@ echo "autoconf + configure.in + aclocal.m4 ==> configure"
 autoconf
 exit_on_failure $? "autoconf"
 
-echo "Creating empty files"
-FILES="NEWS AUTHORS ChangeLog"
-echo "   $FILES"
-for i in $FILES
-do
-    touch $i
-done
+#echo "Creating empty files"
+#FILES="NEWS AUTHORS ChangeLog"
+#echo "   $FILES"
+#for i in $FILES
+#do
+#    touch $i
+#done
 
 echo "automake Makefile.am  => Makefile.in"
 automake --add-missing --copy

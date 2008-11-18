@@ -1,16 +1,15 @@
 //gmcs db_operations.cs -r:System.Data.dll -r:Mono.Data.Sqlite.dll
-
-using System;
 //using System.Data;
-using Mono.Data.Sqlite;
 //using System.IO;
 //using asset_provider;
 
+using System;
+using Mono.Data.Sqlite;
 using NDesk.DBus;
 using org.freedesktop.DBus;
 
 
-namespace db_operations
+namespace DBOperations
 {
 	public class db_operations
 	{

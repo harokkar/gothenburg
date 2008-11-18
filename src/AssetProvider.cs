@@ -1,27 +1,19 @@
-//gmcs asset_provider.cs -r:System.Data.dll -r:Mono.Data.Sqlite.dll  `pkg-config --libs ndesk-dbus-1.0` `pkg-config --libs ndesk-dbus-glib-1.0` `pkg-config --libs gtk-sharp-2.0` `pkg-config --libs glib-sharp-2.0`   `pkg-config --libs gtk-dotnet-2.0` 
-
-//gmcs asset_provider.cs -r:Mono.Data.Sqlite.dll  `pkg-config --libs ndesk-dbus-1.0` `pkg-config --libs ndesk-dbus-glib-1.0`
-
-
-
 using System;
-//using System.Collections.Generic;
-
-//using System.Data;
 using Mono.Data.Sqlite;
-
 using NDesk.DBus;
 using org.freedesktop.DBus;
 
 //using System.IO;
+//using System.Collections.Generic;
+//using System.Data;
 
 
-namespace asset_provider
+namespace AssetProvider
 {
 	public interface IAssetProvider
 	{
-		//GIcon icon {set; get;}	//The Icon of the provider, e.g. the yellow thingie for tomboy ...
-	
+		void init ();
+		//GIcon icon {set; get;}	//TODO: The Icon of the provider, e.g. the yellow thingie for tomboy ...
 		void open(string resourcelink);
 		//void edit(string resourcelink);
 		string create();   //Gives back the resourcelink async when done?!
@@ -32,14 +24,21 @@ namespace asset_provider
 		bool rem_tag(string resourcelink, string tag);
 
 		int retrieve_by_tag(string tag);
-		int retrieve_by_name(string name);
+		string retrieve_by_name(string name);
+		
+		string version ();
 	}
 
-	class tomboy : IAssetProvider
+	class Tomboy : IAssetProvider
 	{
+		public void init()
+		{
+			remote = GetRemoteControl ();
+		}
+		
 		public void open(string resourcelink)
 		{
-	
+			remote.DisplayNote (resourcelink);
 		}
 
 		public string create()
@@ -72,36 +71,66 @@ namespace asset_provider
 			return 1;
 		}
 	
-		public int retrieve_by_name(string name)
+		public string retrieve_by_name(string name)
 		{
-			return 2;
+			return remote.FindNote (name);
+		}
+		
+		public string version ()
+		{
+			return remote.Version ();
+		}
+		
+		RemoteControl remote;				//TODO: Perhaps use a constructor
+		static org.freedesktop.DBus.IBus sBus;
+		static ObjectPath TomboyPath = new ObjectPath ("/org/gnome/Tomboy/RemoteControl");
+		static string TomboyNamespace = "org.gnome.Tomboy";
+		
+		public static RemoteControl GetRemoteControl()
+		{
+			Tomboy.RemoteControl remoteControl = null;
+			try
+			{
+				if (Bus.Session.NameHasOwner (TomboyNamespace) == false)
+					return null;
+				remoteControl = Bus.Session.GetObject<Tomboy.RemoteControl> ( TomboyNamespace, TomboyPath);					
+			}	
+			catch (Exception e)
+			{
+				//Logger.Error ("Exception when getting Tomboy.RemoteControl: {0}", e.Message);
+			}
+			return remoteControl;
+		}
+		
+		[Interface ("org.gnome.Tomboy.RemoteControl")]
+		public interface RemoteControl : Introspectable
+		{
+			//RemoteControl ();
+			string Version ();
+			bool DisplayNote (string uri);
+			string FindNote (string linked_title);
+		}
+
+		public static void introspect()
+		{
+			if (Bus.Session.NameHasOwner (TomboyNamespace) == false)
+				Console.WriteLine ("No");
+			else
+				sBus = Bus.Session.GetObject<org.freedesktop.DBus.IBus> ( TomboyNamespace, TomboyPath);
+	
+			string xmlData = sBus.Introspect ();
+			Console.WriteLine ("xmlData: " + xmlData);
 		}
 	}
 
+	
+
 	// See: /tomboy-0.12.0/Tomboy$ vim RemoteControl.cs 
 
-	//from dbus.mainloop.glib import DBusGMainLoop
-
-	//def openTomboyConnection():
-	//    dbus_loop = DBusGMainLoop()
-	//    bus = dbus.SessionBus( mainloop=dbus_loop )
-	//    tomboy_obj = bus.get_object( "org.gnome.Tomboy", "/org/gnome/Tomboy/RemoteControl")
-	//    return dbus.Interface( tomboy_obj, "org.gnome.Tomboy.RemoteControl")
 
 	//conn = openTomboyConnection()
 
-	//def getProjectNoteURI(connection,name):
-	//	if connection.FindNote(name) != "":
-	//		return connection.FindNote(name)
-	//	else:
-	//		return False
-
-	//def getProjectNotes(projectName):
-	//	notesList = []
-	//	for note in conn.ListAllNotes():
-	//		if (conn.GetNoteTitle(note).lower().find(projectName.lower()) != -1) or (conn.GetNoteContents(note).lower().find(projectName.lower()) != -1):
-	//			notesList.append(note)
-	//	return notesList
+	
 
 	//def createProjectNote(connection,name):
 	//	#FIXME: broken
@@ -111,8 +140,6 @@ namespace asset_provider
 
 	//def openProjectNote(noteURI):
 	//	openTomboyConnection().DisplayNote(noteURI)
-
-
 
 	/*namespace Tomboy
 	{
@@ -145,20 +172,6 @@ namespace asset_provider
 	//		}
 	//	}
 	//}
-
-
-	namespace Tomboy
-	{
-		[Interface ("org.gnome.Tomboy.RemoteControl")]
-		public interface RemoteControl : Introspectable
-		{
-			//RemoteControl ();
-			string Version ();
-			bool DisplayNote (string uri);
-			string FindNote (string linked_title);
-		}
-	}
-
 
 	//# Display the Start Here note
 	//tomboy.DisplayNote(tomboy.FindStartHereNote())
@@ -194,40 +207,4 @@ namespace asset_provider
 
 	//# Loop until manually terminated
 	//gobject.MainLoop().run()
-
-
-	public class Test
-	{
-		//static IBus bus;
-		static org.freedesktop.DBus.IBus sBus;
-		static ObjectPath TomboyPath = new ObjectPath ("/org/gnome/Tomboy/RemoteControl");
-		static string TomboyNamespace = "org.gnome.Tomboy";
-	
-		public static Tomboy.RemoteControl GetTomboyRemoteControl()
-		{
-			Tomboy.RemoteControl remoteControl = null;
-			try
-			{
-				if (Bus.Session.NameHasOwner (TomboyNamespace) == false)
-					return null;
-				remoteControl = Bus.Session.GetObject<Tomboy.RemoteControl> ( TomboyNamespace, TomboyPath);					
-			}	
-			catch (Exception e)
-			{
-				//Logger.Error ("Exception when getting Tomboy.RemoteControl: {0}", e.Message);
-			}
-			return remoteControl;
-		}	
-	
-		public static void introspect()
-		{
-			if (Bus.Session.NameHasOwner (TomboyNamespace) == false)
-				Console.WriteLine ("No");
-			else
-				sBus = Bus.Session.GetObject<org.freedesktop.DBus.IBus> ( TomboyNamespace, TomboyPath);
-	
-			string xmlData = sBus.Introspect ();
-			Console.WriteLine ("xmlData: " + xmlData);
-		}			
-	}
 }

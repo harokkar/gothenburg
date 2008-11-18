@@ -29,9 +29,9 @@ CSFLAGS =	\
 #$(CSC_DEFINES)
 
 CSFILES =           \
-	$(srcdir)/gothenburg.cs       \
-	$(srcdir)/asset_provider.cs       \
-	$(srcdir)/db_operations.cs
+	$(srcdir)/Gothenburg.cs       \
+	$(srcdir)/AssetProvider.cs       \
+	$(srcdir)/DBOperations.cs
 
 
 ASSEMBLIES =    \

@@ -17,44 +17,59 @@ using System;
 //using System.Data;
 using Mono.Data.Sqlite;
 //using System.IO;
-using asset_provider;
-using db_operations;
+using AssetProvider;
+using DBOperations;
 
 using NDesk.DBus;
 using org.freedesktop.DBus;
 
 /*
 public static void Main(string[] args)
-	{
-		string connectionString = "URI=file:~/DEV/codename_gothenburg/gbg/gbg.db, version=3";
-		//string connectionString = "Data Source=file:~/DEV/codename_gothenburg/gbg/gbg.db, version=3"; new assembly should work FIXME
-		
-		connection = new SqliteConnection(connectionString);
-		connection.Open();
-		
-		//Appropriate tables required to be created
-		
-		projects_list();
-		//projectid_get("foobar2");
-		//project_rem(10);
-					
-		connection.Close();
-		connection = null;		
-	}
+{
+	string connectionString = "URI=file:~/DEV/codename_gothenburg/gbg/gbg.db, version=3";
+	//string connectionString = "Data Source=file:~/DEV/codename_gothenburg/gbg/gbg.db, version=3"; new assembly should work FIXME
+	
+	connection = new SqliteConnection(connectionString);
+	connection.Open();
+	
+	//Appropriate tables required to be created
+	
+	projects_list();
+	//projectid_get("foobar2");
+	//project_rem(10);
+				
+	connection.Close();
+	connection = null;		
+}
 */
+
+//def getProjectNoteURI(connection,name):
+	//	if connection.FindNote(name) != "":
+	//		return connection.FindNote(name)
+	//	else:
+	//		return False
+
+	//def getProjectNotes(projectName):
+	//	notesList = []
+	//	for note in conn.ListAllNotes():
+	//		if (conn.GetNoteTitle(note).lower().find(projectName.lower()) != -1) or (conn.GetNoteContents(note).lower().find(projectName.lower()) != -1):
+	//			notesList.append(note)
+	//	return notesList
 
 class Gothenburg
 {	
 	public static void Main(string[] args)
 	{
-				BusG.Init ();		
-				asset_provider.Tomboy.RemoteControl remote = asset_provider.Test.GetTomboyRemoteControl ();
-		
-				Console.WriteLine ("Tomboy Version: " + remote.Version());
-		
-				string uri = remote.FindNote("as");
-				remote.DisplayNote(uri);
+		AssetProvider.Tomboy tomboy = new AssetProvider.Tomboy ();	
 
-				//?? Service tomboy = Service.Get(sBbus,"org.gnome.Tomboy.Remote");
+		BusG.Init ();
+		tomboy.init();	//RemoteControl remote = AssetProvider.Tomboy.GetRemoteControl ();
+
+		Console.WriteLine ("Tomboy Version: " + tomboy.version());
+
+		string uri = tomboy.retrieve_by_name("as");
+		tomboy.open (uri);
+		
+		//?? Service tomboy = Service.Get(sBbus,"org.gnome.Tomboy.Remote");
 	}
 }
