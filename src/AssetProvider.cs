@@ -7,7 +7,8 @@ using org.freedesktop.DBus;
 //using System.Collections.Generic;
 //using System.Data;
 
-
+namespace Gothenburg
+{
 namespace AssetProvider
 {
 	public interface IAssetProvider
@@ -207,4 +208,5 @@ namespace AssetProvider
 
 	//# Loop until manually terminated
 	//gobject.MainLoop().run()
+}
 }

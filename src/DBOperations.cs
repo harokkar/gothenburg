@@ -9,15 +9,28 @@ using NDesk.DBus;
 using org.freedesktop.DBus;
 
 
-namespace DBOperations
+namespace Gothenburg
 {
-	public class db_operations
+	public class DBOperations
 	{
-		private static SqliteConnection connection;
-	
-		public static void createdb()
+    public static SqliteConnection connection;
+
+    public DBOperations (string connectionString)
+    {
+      createdb ();
+      connection = new SqliteConnection(connectionString);
+      connection.Open();
+    }
+
+    ~ DBOperations ()
+    {
+      connection.Close();
+      connection = null;
+    }
+
+		private static void createdb ()
 		{
-	
+      //Appropriate tables required to be created	
 		}
 		
 		public int foo(int a)

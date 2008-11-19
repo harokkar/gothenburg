@@ -8,12 +8,12 @@ namespace GothenburgTest
 	[TearDown] public void TearDown() { foo.cleanUp(); }*/
 
 	[TestFixture]
-	public class db_operationsTests
+	public class DBOperationsTests
 	{
 		[Test]
 		public void tags_getTest ()
 		{
-			db_operations testdbop = new db_operations();
+			DBOperations testdbop = new db_operations();
 			int val = testdbop.foo(1);
 			Assert.AreEqual(3, val);
 		}

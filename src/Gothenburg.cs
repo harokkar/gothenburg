@@ -9,67 +9,50 @@
 //if(true)
 //	rem tags in db
 //	undo step in db
-
-//gmcs gothenburg.cs db_operations.cs asset_provider.cs -r:Mono.Data.Sqlite.dll  `pkg-config --libs ndesk-dbus-1.0` `pkg-config --libs ndesk-dbus-glib-1.0`
-
+//
+//	 def getProjectNoteURI(connection,name):
+//	 def getProjectNotes(projectName):
+//
 
 using System;
-//using System.Data;
 using Mono.Data.Sqlite;
-//using System.IO;
-using AssetProvider;
-using DBOperations;
-
 using NDesk.DBus;
 using org.freedesktop.DBus;
 
-/*
-public static void Main(string[] args)
+namespace Gothenburg
 {
-	string connectionString = "URI=file:~/DEV/codename_gothenburg/gbg/gbg.db, version=3";
-	//string connectionString = "Data Source=file:~/DEV/codename_gothenburg/gbg/gbg.db, version=3"; new assembly should work FIXME
+  class Gothenburg
+  { 
+    public static void Main(string[] args)
+    {
+	    string connectionString = "URI=file:/home/harlan/DEV/codename_gothenburg/gbg/test/gbg.db, version=3";
+	    //string connectionString = "Data Source=file:~/DEV/codename_gothenburg/gbg/gbg.db, version=3"; new assembly should work FIXME
+      
+      DBOperations dbo = new DBOperations (connectionString);
+	    //connection = new SqliteConnection(connectionString);
+	    //connection.Open();
 	
-	connection = new SqliteConnection(connectionString);
-	connection.Open();
+  	  //Appropriate tables required to be created
 	
-	//Appropriate tables required to be created
-	
-	projects_list();
-	//projectid_get("foobar2");
-	//project_rem(10);
-				
-	connection.Close();
-	connection = null;		
-}
-*/
+      //dbo.projects_list();
+  
+      Console.WriteLine (dbo.foo(1));
 
-//def getProjectNoteURI(connection,name):
-	//	if connection.FindNote(name) != "":
-	//		return connection.FindNote(name)
-	//	else:
-	//		return False
+	    //projectid_get("foobar2");
+	    //project_rem(10);
+     
 
-	//def getProjectNotes(projectName):
-	//	notesList = []
-	//	for note in conn.ListAllNotes():
-	//		if (conn.GetNoteTitle(note).lower().find(projectName.lower()) != -1) or (conn.GetNoteContents(note).lower().find(projectName.lower()) != -1):
-	//			notesList.append(note)
-	//	return notesList
+     AssetProvider.Tomboy tomboy = new AssetProvider.Tomboy ();  
 
-class Gothenburg
-{	
-	public static void Main(string[] args)
-	{
-		AssetProvider.Tomboy tomboy = new AssetProvider.Tomboy ();	
+     BusG.Init ();
+     tomboy.init();  //RemoteControl remote = AssetProvider.Tomboy.GetRemoteControl ();
 
-		BusG.Init ();
-		tomboy.init();	//RemoteControl remote = AssetProvider.Tomboy.GetRemoteControl ();
+     Console.WriteLine ("Tomboy Version: " + tomboy.version());
 
-		Console.WriteLine ("Tomboy Version: " + tomboy.version());
-
-		string uri = tomboy.retrieve_by_name("as");
-		tomboy.open (uri);
-		
-		//?? Service tomboy = Service.Get(sBbus,"org.gnome.Tomboy.Remote");
-	}
+     string uri = tomboy.retrieve_by_name("as");
+     tomboy.open (uri);
+                                 
+    //?? Service tomboy = Service.Get(sBbus,"org.gnome.Tomboy.Remote");
+    }
+  }
 }
