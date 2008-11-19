@@ -1,7 +1,7 @@
 namespace GothenburgTest
 {
 	using NUnit.Framework;
-	using db_operations;
+	using Gothenburg;
 
 	//foo variable should be declared as an instance of the test class
 	/*[SetUp] public void SetUp() { foo = new Foo(); }
