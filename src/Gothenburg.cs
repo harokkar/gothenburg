@@ -1,10 +1,8 @@
 //some pseudocode mockups out of the top of my head
-
 //add tag für alle assets in tomboy+ other providers
 //if(true)
 //	add tag in db
 //	undo step in db
-
 //rem tags für alle betroffenen assets in tomboy+andere provider
 //if(true)
 //	rem tags in db
@@ -12,7 +10,6 @@
 //
 //	 def getProjectNoteURI(connection,name):
 //	 def getProjectNotes(projectName):
-//
 
 using System;
 using Mono.Data.Sqlite;
@@ -29,8 +26,6 @@ namespace Gothenburg
 	    //string connectionString = "Data Source=file:~/DEV/codename_gothenburg/gbg/gbg.db, version=3"; new assembly should work FIXME
       
       DBOperations dbo = new DBOperations (connectionString);
-	    //connection = new SqliteConnection(connectionString);
-	    //connection.Open();
 	
   	  //Appropriate tables required to be created
 	

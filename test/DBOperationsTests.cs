@@ -13,7 +13,7 @@ namespace GothenburgTest
 		[Test]
 		public void tags_getTest ()
 		{
-			DBOperations testdbop = new db_operations();
+			DBOperations testdbop = new DBOperations( "FOO" );
 			int val = testdbop.foo(1);
 			Assert.AreEqual(3, val);
 		}

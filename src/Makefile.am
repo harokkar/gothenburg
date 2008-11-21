@@ -1,9 +1,10 @@
 #include $(top_srcdir)/Makefile.include
 #SUBDIRS = . Addins
 
-bin_PROGRAMS = gothenburg.exe
-
 TARGET = gothenburg.exe
+
+bin_SCRIPTS = $(TARGET)
+
 #WRAPPER = gothenburg
 #PANEL_WRAPPER = tomboy-panel
 
@@ -39,7 +40,7 @@ ASSEMBLIES =    \
 	-r:Mono.Data.Sqlite.dll \
 	$(DBUS_LIBS)
 
-gothenburg_exe_SOURCES = $(CSFILES)
+#gothenburg_exe_SOURCES = $(CSFILES)
 
 #$(LINK_MONO_ADDINS)
 
@@ -47,8 +48,8 @@ $(TARGET): $(CSFILES)
 	$(GMCS) -out:$@ $(CSFLAGS) $^ $(ASSEMBLIES) #$(RESOURCES)
 
 
-#EXTRA_DIST =	\
-#	$(CSFILES)	\
+EXTRA_DIST =	\
+	$(CSFILES)
 #	$(WRAPPER).in	\
 #	$(PANEL_WRAPPER).in   \
 #	$(TARGET).config.in   \

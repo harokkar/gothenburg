@@ -1,6 +1,8 @@
 #bin_PROGRAMS = GothenburgTest.dll
 
 TARGET = GothenburgTest.dll
+noinst_SCRIPTS = $(TARGET)
+#noinst_LIBRARIES = $(TARGET)
 
 CSFLAGS =				\
 	-debug				\
@@ -8,7 +10,7 @@ CSFLAGS =				\
 	-target:library
 
 CSFILES =				\
-	$(srcdir)/db_operationsTests.cs
+	$(srcdir)/DBOperationsTests.cs
 	
 
 ASSEMBLIES =							\
