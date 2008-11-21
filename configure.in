@@ -38,4 +38,5 @@ AC_OUTPUT([\
 Makefile \
 src/Makefile \
 test/Makefile \
+resources/Makefile \
 ])
