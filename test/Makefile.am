@@ -10,12 +10,12 @@ CSFLAGS =				\
 	-target:library
 
 CSFILES =				\
-	$(srcdir)/DBOperationsTests.cs
-	
+	$(srcdir)/DBOperationsTests.cs \
+	$(srcdir)/AssetProviderTests.cs
 
 ASSEMBLIES =							\
 	$(NUNIT_LIBS)						\
-	-r:$(top_builddir)/src/gothenburg.exe			
+	-r:$(top_builddir)/src/gothenburg.exe
 
 #MONO_PATH = $(top_builddir)/Tomboy:$(top_builddir)/Tomboy/Plugins
 

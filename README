@@ -1,10 +1,13 @@
 Gothenburg is a UI providing a project-centric view on your GNOME Desktop
 
 
+See INSTALL for instructions on how to install the program
+
+
 To create code coverage, profiling and unit test reports, do: 
 
   ./report.sh
   
   
   
-Terminology of the project: Asset, Project, ...
+##Terminology of the project: Asset, Project, ...

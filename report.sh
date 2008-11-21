@@ -5,7 +5,8 @@
 echo "\n* Running unit tests and saving report to /report ... \n"
 
 cd test
-make GothenburgTest.dll
+#make GothenburgTest.dll
+ln -s ../src/gothenburg.exe gothenburg.exe
 nunit-console GothenburgTest.dll | tee ../report/UnitTest_Report.txt
 cd ..
 

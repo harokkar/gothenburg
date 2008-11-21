@@ -2,9 +2,8 @@ To build type:
 
   ./configure && make && make install
 
+  In case you don't have full permissions you might want to set the prefix, doing: ./configure  --prefix=~/your/prefix/foo
 
-To run:
+To run type:
 
-  gothenburg
-
-
+  gothenburg (perhaps ./gothenburg in your prefix)
