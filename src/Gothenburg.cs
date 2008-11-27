@@ -61,7 +61,6 @@ namespace Gothenburg
 	    //projectid_get("foobar2");
 	    //project_rem(10);
      
-
      AssetProvider.Tomboy tomboy = new AssetProvider.Tomboy ();  
 
      BusG.Init ();
@@ -71,6 +70,10 @@ namespace Gothenburg
 
      string uri = tomboy.retrieve_by_name("as");
      tomboy.open (uri);
+     
+     Gtk.Application.Init ();
+     new Gui ();
+     Gtk.Application.Run ();
                                  
     //?? Service tomboy = Service.Get(sBbus,"org.gnome.Tomboy.Remote");
     }

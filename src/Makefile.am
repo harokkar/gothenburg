@@ -1,5 +1,6 @@
 #include $(top_srcdir)/Makefile.include
-#SUBDIRS = . Addins
+#SUBDIRS = . BansheeWidgets
+SUBDIRS = .
 
 TARGET = gothenburg.exe
 
@@ -30,15 +31,18 @@ CSFLAGS =	\
 #$(CSC_DEFINES)
 
 CSFILES =           \
-	$(srcdir)/Gothenburg.cs       \
-	$(srcdir)/AssetProvider.cs       \
-	$(srcdir)/DBOperations.cs
+	$(srcdir)/Gothenburg.cs	\
+	$(srcdir)/AssetProvider.cs	\
+	$(srcdir)/DBOperations.cs	\
+	$(srcdir)/Gui.cs
 
 
 ASSEMBLIES =    \
 	-r:Mono.Posix \
 	-r:Mono.Data.Sqlite.dll \
-	$(DBUS_LIBS)
+	-pkg:gtk-sharp-2.0 \
+	$(DBUS_LIBS) \
+	$(GTKSHARP_LIBS)
 
 #gothenburg_exe_SOURCES = $(CSFILES)
 
