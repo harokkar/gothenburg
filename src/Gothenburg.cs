@@ -47,30 +47,24 @@ namespace Gothenburg
   { 
     public static void Main(string[] args)
     {
-	    string connectionString = "URI=file:/home/harlan/DEV/codename_gothenburg/gbg/test/gbg.db, version=3";
+      string connectionString = "URI=file:/home/harlan/DEV/codename_gothenburg/gbg/test/gbg.db, version=3";
 	    //string connectionString = "Data Source=file:~/DEV/codename_gothenburg/gbg/gbg.db, version=3"; new assembly should work FIXME
       
       DBOperations dbo = new DBOperations (connectionString);
 	
-  	  //Appropriate tables required to be created
-	
+      //Appropriate tables required to be created
       //dbo.projects_list();
-  
-      Console.WriteLine (dbo.foo(1));
-
-	    //projectid_get("foobar2");
-	    //project_rem(10);
+      //Console.WriteLine (dbo.foo(1));
+      //projectid_get("foobar2");
+      //project_rem(10);
      
      AssetProvider.Tomboy tomboy = new AssetProvider.Tomboy ();  
 
      BusG.Init ();
      tomboy.init();  //RemoteControl remote = AssetProvider.Tomboy.GetRemoteControl ();
 
-     Console.WriteLine ("Tomboy Version: " + tomboy.version());
+     //Console.WriteLine ("Tomboy Version: " + tomboy.version());
 
-     string uri = tomboy.retrieve_by_name("as");
-     tomboy.open (uri);
-     
      Gtk.Application.Init ();
      new Gui ();
      Gtk.Application.Run ();

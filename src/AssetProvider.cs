@@ -63,6 +63,7 @@ namespace AssetProvider
 		public void open(string resourcelink)
 		{
 			remote.DisplayNote (resourcelink);
+			
 		}
 
 		public string create()
