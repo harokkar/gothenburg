@@ -57,18 +57,28 @@ namespace Gothenburg
       //Console.WriteLine (dbo.foo(1));
       //projectid_get("foobar2");
       //project_rem(10);
-     
-     AssetProvider.Tomboy tomboy = new AssetProvider.Tomboy ();  
 
-     BusG.Init ();
-     tomboy.init();  //RemoteControl remote = AssetProvider.Tomboy.GetRemoteControl ();
+     //BusG.Init ();
+     //tomboy.init();  //RemoteControl remote = AssetProvider.Tomboy.GetRemoteControl ();
 
      //Console.WriteLine ("Tomboy Version: " + tomboy.version());
 
      Gtk.Application.Init ();
+     BusG.Init ();
      new Gui ();
      Gtk.Application.Run ();
-                                 
+     
+     /*AssetProvider.Tomboy tomboy = new AssetProvider.Tomboy ();  
+     tomboy.init();
+     string[] str = tomboy.retrieve_by_tag("FOO");
+     
+     foreach (string Str in str)
+     {
+     	Console.WriteLine (Str);
+     }*/
+     
+     //Console.WriteLine (str[0]);
+                         
     //?? Service tomboy = Service.Get(sBbus,"org.gnome.Tomboy.Remote");
     }
   }

@@ -47,13 +47,13 @@ namespace AssetProvider
 		bool add_tag(string resourcelink, string tag);
 		bool rem_tag(string resourcelink, string tag);
 
-		int retrieve_by_tag(string tag);
+		string[] retrieve_by_tag(string tag);
 		string retrieve_by_name(string name);
 		
 		string version ();
 	}
 
-  public class Tomboy : IAssetProvider
+ 	public class Tomboy : IAssetProvider
 	{
 		public void init()
 		{
@@ -83,7 +83,8 @@ namespace AssetProvider
 
 		public bool add_tag(string resourcelink, string tag)
 		{
-			return true;
+			
+			return remote.AddTagToNote (resourcelink, tag);
 		}
 	
 		public bool rem_tag(string resourcelink, string tag)
@@ -91,9 +92,10 @@ namespace AssetProvider
 			return true;
 		}
 
-		public int retrieve_by_tag(string tag)
+		public string[] retrieve_by_tag(string tag)
 		{
-			return 1;
+      			return remote.GetAllNotesWithTag (tag);
+      			//return remote.ListAllNotes ();
 		}
 	
 		public string retrieve_by_name(string name)
@@ -134,6 +136,9 @@ namespace AssetProvider
 			string Version ();
 			bool DisplayNote (string uri);
 			string FindNote (string linked_title);
+			string[] GetAllNotesWithTag (string tag_name);
+			string[] ListAllNotes ();
+			bool AddTagToNote (string uri, string tag_name);
 		}
 
 		public static void introspect()

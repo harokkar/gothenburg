@@ -23,6 +23,7 @@
 using System.Collections;
 using Gtk;
 using Mono.Unix;
+using System;
 
 using Gothenburg.AssetProvider;
 
@@ -35,6 +36,9 @@ namespace Gothenburg
 	{
 		Gtk.Entry filterEntry;
 		Gtk.TreeModelFilter filter;
+		int icon_width = 25;
+		int icon_height = 25;
+		Gtk.Window window = new Gtk.Window ("Gothenburg");
 	
 		private void OnFilterEntryTextChanged (object Obj, System.EventArgs args)
 		{
@@ -95,24 +99,32 @@ namespace Gothenburg
      			//ITask task = model.GetValue (iter, 0) as ITask;
       			if (asset == null)
        				return;
-     
-     			BusG.Init ();
-			AssetProvider.Tomboy tomboy = new AssetProvider.Tomboy ();  
-     			tomboy.init();
-			tomboy.open (tomboy.retrieve_by_name("as"));
-     			//OpenAsset (asset);
+
+     			asset.Open();
                 }
 
-		
+		void OnSelectorChanged (object obj, EventArgs args)
+		{
+			ComboBox combo = obj as ComboBox;
+			if (obj == null)
+				return;
+			TreeIter iter;
+			
+			if (combo.GetActiveIter (out iter))
+		               window.Title = (string) combo.Model.GetValue (iter, 0);
+		}
+
 		public Gui ()
 		{
-			Gtk.Window window = new Gtk.Window ("Project Foo");
-			window.SetSizeRequest (300, 200);
+
+			window.SetSizeRequest (300, 500);
                         window.DeleteEvent += DeleteEvent;
+                        window.Icon = new Gdk.Pixbuf ("lipsticktower.jpg");	//Kalle, Andreas :: Call for Icon!
 	
 			Gtk.VBox box = new Gtk.VBox (false, 0);
 			Gtk.HBox top = new Gtk.HBox (false, 0);
-			Gtk.ComboBox selector = new Gtk.ComboBox ();
+			//Gtk.ComboBox selector = new Gtk.ComboBox ();
+			Gtk.ComboBox selector = ComboBox.NewText ();
 			ScrolledWindow scroll = new ScrolledWindow ();
 	 		filterEntry = new Gtk.Entry ();
 			filterEntry.Changed += OnFilterEntryTextChanged;
@@ -144,8 +156,9 @@ namespace Gothenburg
 	 		ArrayList assets = new ArrayList ();
 	 		for(int i=1; i<3; i++)
 	 		{
-	 			assets.Add (new Asset("Tomboy", new Gdk.Pixbuf ("Icon.xpm"), "LinkFoo" ,"Meet Tom", "19.03.2008"));
-	 			assets.Add (new Asset("Tomboy", new Gdk.Pixbuf ("Icon.xpm"), "LinkFoo" ,"Shop Groceries", "23.03.2008"));
+	 			assets.Add (new Asset("Tomboy", new Gdk.Pixbuf ("Icon.xpm",icon_width,icon_height), "LinkFoo" ,"Meet Tom", "19.03.2008"));
+	 			assets.Add (new Asset("Tomboy", new Gdk.Pixbuf ("Icon.png",icon_width,icon_height), "LinkFoo" ,"Shop Groceries", "23.03.2008"));
+	 			assets.Add (new Asset("Tomboy", new Gdk.Pixbuf ("lipsticktower.jpg",icon_width,icon_height), "LinkFoo" ,"New Lipstick", "19.03.2008"));
 			}
 			
 	  		Gtk.ListStore AssetListStore = new Gtk.ListStore (typeof (Asset));
@@ -157,6 +170,12 @@ namespace Gothenburg
 			filter = new Gtk.TreeModelFilter (AssetListStore, null);
 			filter.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree);
 			tree.Model = filter;
+			
+			selector.AppendText ("AFST");
+			selector.AppendText ("Friends Of GNOME Website");
+			selector.AppendText ("Free Desktop Summit Gran Canaria");
+          		selector.Changed += new EventHandler (OnSelectorChanged);
+			
 			
 			//tree.Model = AssetListStore;
 			

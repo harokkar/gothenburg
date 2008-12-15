@@ -9,5 +9,6 @@ To create code coverage, profiling and unit test reports, do:
   ./report.sh
   
   
+Check: http://identi.ca/gothenburg & http://github.com/harokkar/gothenburg & http://twitter.com/goburg
   
 ##Terminology of the project: Asset, Project, ...
