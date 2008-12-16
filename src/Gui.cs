@@ -24,9 +24,7 @@ using System.Collections;
 using Gtk;
 using Mono.Unix;
 using System;
-
 using Gothenburg.AssetProvider;
-
 using Mono.Data.Sqlite;
 using NDesk.DBus;
 
@@ -34,10 +32,11 @@ namespace Gothenburg
 {
 	public class Gui
 	{
+		Gtk.TreeView tree = new Gtk.TreeView ();
 		Gtk.Entry filterEntry;
 		Gtk.TreeModelFilter filter;
-		int icon_width = 25;
-		int icon_height = 25;
+		ArrayList assets;
+		
 		Gtk.Window window = new Gtk.Window ("Gothenburg");
 	
 		private void OnFilterEntryTextChanged (object Obj, System.EventArgs args)
@@ -105,13 +104,38 @@ namespace Gothenburg
 
 		void OnSelectorChanged (object obj, EventArgs args)
 		{
+			string title;
+			int projID = 0;
 			ComboBox combo = obj as ComboBox;
+			
 			if (obj == null)
 				return;
 			TreeIter iter;
 			
 			if (combo.GetActiveIter (out iter))
-		               window.Title = (string) combo.Model.GetValue (iter, 0);
+		        {
+		        	title = (string) combo.Model.GetValue (iter, 0);
+		        	window.Title = title;
+		        	
+		        	if(title == "AFST")
+		        		projID = 1;
+		        	if(title == "Friends Of GNOME Website")
+		        		projID = 2;		        	
+		        	if(title == "Free Desktop Summit Gran Canaria")
+		        		projID = 3;	        	
+		        	
+		        	assets = DataLayer.GetAssets(projID);
+		        	
+		        	Gtk.ListStore AssetListStore = new Gtk.ListStore (typeof (Asset));
+				foreach (Asset asset in assets)
+				{
+					AssetListStore.AppendValues (asset);				
+				}
+			
+				filter = new Gtk.TreeModelFilter (AssetListStore, null);
+				filter.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree);
+				tree.Model = filter;	//tree.Model = AssetListStore;	
+		        }
 		}
 
 		public Gui ()
@@ -129,7 +153,7 @@ namespace Gothenburg
 	 		filterEntry = new Gtk.Entry ();
 			filterEntry.Changed += OnFilterEntryTextChanged;
 			
-			Gtk.TreeView tree = new Gtk.TreeView ();
+			//Gtk.TreeView tree = new Gtk.TreeView ();
 			tree.HeadersVisible = false;
 			tree.Reorderable = true;
 			tree.EnableSearch = false;
@@ -152,36 +176,16 @@ namespace Gothenburg
 			Gtk.CellRendererText secInfoCell = new Gtk.CellRendererText ();
 			secCol.PackStart (secInfoCell, true);
 			secCol.SetCellDataFunc (secInfoCell, new Gtk.TreeCellDataFunc (RenderSecondary));
-
-	 		ArrayList assets = new ArrayList ();
-	 		for(int i=1; i<3; i++)
-	 		{
-	 			assets.Add (new Asset("Tomboy", new Gdk.Pixbuf ("Icon.xpm",icon_width,icon_height), "LinkFoo" ,"Meet Tom", "19.03.2008"));
-	 			assets.Add (new Asset("Tomboy", new Gdk.Pixbuf ("Icon.png",icon_width,icon_height), "LinkFoo" ,"Shop Groceries", "23.03.2008"));
-	 			assets.Add (new Asset("Tomboy", new Gdk.Pixbuf ("lipsticktower.jpg",icon_width,icon_height), "LinkFoo" ,"New Lipstick", "19.03.2008"));
-			}
-			
-	  		Gtk.ListStore AssetListStore = new Gtk.ListStore (typeof (Asset));
-			foreach (Asset asset in assets)
-			{
-				AssetListStore.AppendValues (asset);				
-			}
-			
-			filter = new Gtk.TreeModelFilter (AssetListStore, null);
-			filter.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree);
-			tree.Model = filter;
 			
 			selector.AppendText ("AFST");
 			selector.AppendText ("Friends Of GNOME Website");
 			selector.AppendText ("Free Desktop Summit Gran Canaria");
           		selector.Changed += new EventHandler (OnSelectorChanged);
-			
-			
-			//tree.Model = AssetListStore;
+			selector.Active = 2;			
 			
 			tree.AppendColumn (iconCol);
 			tree.AppendColumn (primCol);
-			tree.AppendColumn (secCol);
+			tree.AppendColumn (secCol);			
 
 	     		MenuBar menu = new MenuBar ();
 	     		Menu fileMenu = new Menu();
@@ -201,10 +205,3 @@ namespace Gothenburg
 		}
 	}
 }
-
-
-//old:
-//Gtk.ListStore AssetListStore = new Gtk.ListStore (typeof (Gdk.Pixbuf), typeof (string),  typeof (string));
-//tree.AppendColumn ("Icon", new Gtk.CellRendererPixbuf (), "pixbuf", 0);  
-//tree.AppendColumn ("Primary Info", new Gtk.CellRendererText (), "text", 1);
-//tree.AppendColumn ("Secondary Info", new Gtk.CellRendererText (), "text", 2);

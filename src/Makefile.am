@@ -35,6 +35,7 @@ CSFILES =           \
 	$(srcdir)/Asset.cs \
 	$(srcdir)/AssetProvider.cs	\
 	$(srcdir)/DBOperations.cs	\
+	$(srcdir)/DataLayer.cs \
 	$(srcdir)/Gui.cs
 
 

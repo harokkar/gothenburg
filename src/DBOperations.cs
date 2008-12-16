@@ -37,20 +37,20 @@ namespace Gothenburg
 {
 	public class DBOperations
 	{
-    public static SqliteConnection connection;
+	    public static SqliteConnection connection;
 
-    public DBOperations (string connectionString)
-    {
-      createdb ();
-      connection = new SqliteConnection(connectionString);
-      connection.Open();
-    }
+	    public DBOperations (string connectionString)
+	    {
+	      createdb ();
+	      connection = new SqliteConnection(connectionString);
+	      connection.Open();
+	    }
 
-    ~ DBOperations ()
-    {
-      connection.Close();
-      connection = null;
-    }
+	    ~ DBOperations ()
+	    {
+	      connection.Close();
+	      connection = null;
+	    }
 
 		private static void createdb ()
 		{
