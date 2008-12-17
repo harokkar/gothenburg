@@ -36,6 +36,7 @@ namespace Gothenburg
 		Gtk.Entry filterEntry;
 		Gtk.TreeModelFilter filter;
 		ArrayList assets;
+		ArrayList projects;
 		
 		Gtk.Window window = new Gtk.Window ("Gothenburg");
 	
@@ -115,14 +116,14 @@ namespace Gothenburg
 			if (combo.GetActiveIter (out iter))
 		        {
 		        	title = (string) combo.Model.GetValue (iter, 0);
-		        	window.Title = title;
+		        	window.Title = title + " - Gothenburg";     	
 		        	
 		        	if(title == "AFST")
 		        		projID = 1;
 		        	if(title == "Friends Of GNOME Website")
 		        		projID = 2;		        	
 		        	if(title == "Free Desktop Summit Gran Canaria")
-		        		projID = 3;	        	
+		        		projID = 3;
 		        	
 		        	assets = DataLayer.GetAssets(projID);
 		        	
@@ -177,12 +178,14 @@ namespace Gothenburg
 			secCol.PackStart (secInfoCell, true);
 			secCol.SetCellDataFunc (secInfoCell, new Gtk.TreeCellDataFunc (RenderSecondary));
 			
-			selector.AppendText ("AFST");
-			selector.AppendText ("Friends Of GNOME Website");
-			selector.AppendText ("Free Desktop Summit Gran Canaria");
-          		selector.Changed += new EventHandler (OnSelectorChanged);
-			selector.Active = 2;			
-			
+	        	projects = DataLayer.GetProjects ();
+			foreach (String project in projects)
+			{	
+				selector.AppendText (project);
+			}
+			selector.Changed += new EventHandler (OnSelectorChanged);
+			selector.Active = 2;
+					
 			tree.AppendColumn (iconCol);
 			tree.AppendColumn (primCol);
 			tree.AppendColumn (secCol);			
@@ -192,14 +195,23 @@ namespace Gothenburg
 			MenuItem menuItem = new MenuItem("_File");
 	      		menuItem.Submenu = fileMenu;
 	      		menu.Append(menuItem); 
-		
+			
+	     		Statusbar status = new Statusbar ();
+			Toolbar tool = new Toolbar ();
+			
+			ToolButton plus = new ToolButton (Gtk.Stock.Add);
+			ToolButton minus = new ToolButton (Gtk.Stock.Remove);
+	     		
 			box.PackStart (menu, false, true, 0);
+			box.PackStart (tool, false, true, 0);
+			tool.Insert(minus, 0);
+			tool.Insert(plus, 0);
 	 		top.PackStart (filterEntry, true, true, 0);
 	 		top.PackStart (selector, true, true, 0);
-	 		box.PackStart (top, false, true, 0);
-	 		
+	 		box.PackStart (top, false, true, 0);	 		
 	 		scroll.Add (tree);
 	 		box.PackStart (scroll, true, true, 0);
+	 		box.PackStart (status, false, true, 0);
 			window.Add (box);
 			window.ShowAll ();
 		}

@@ -108,6 +108,11 @@ namespace AssetProvider
 			return remote.Version ();
 		}
 		
+		public string[] get_all_notes (string query)
+		{
+			return remote.SearchNotes (query, false);
+		}
+		
 		RemoteControl remote;				//TODO: Perhaps use a constructor
 		static org.freedesktop.DBus.IBus sBus;
 		static ObjectPath TomboyPath = new ObjectPath ("/org/gnome/Tomboy/RemoteControl");
@@ -139,6 +144,7 @@ namespace AssetProvider
 			string[] GetAllNotesWithTag (string tag_name);
 			string[] ListAllNotes ();
 			bool AddTagToNote (string uri, string tag_name);
+			string[] SearchNotes (string query, bool case_sensitive);
 		}
 
 		public static void introspect()
