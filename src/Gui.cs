@@ -123,10 +123,15 @@ namespace Gothenburg
 				projID = combo.Active;
 				//Console.WriteLine (projID);
 				//UpdateModel (); 
-
-				//AssetListStore = new Gtk.ListStore (typeof (Asset));
-				AssetListStore = (ListStore) dlayer.GetAssets (projID);
-				tree.Model = AssetListStore;
+	
+				/*filter = new Gtk.TreeModelFilter (dlayer.GetAssets (projID), null);
+				filter.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree);
+				tree.Model = filter;*/
+			
+				tree.Model = dlayer.GetAssets (projID);
+				//AssetListStore = (ListStore) dlayer.GetAssets (projID);
+				//tree.Model = AssetListStore;
+				
 				/*foreach (Asset asset in AssetListStore)
 					Console.WriteLine ("a"+(string)asset.GetPrimary ());*/
 
@@ -156,7 +161,7 @@ namespace Gothenburg
 		        }
 		}
 		
-		void UpdateModel()
+		/*void UpdateModel()
 		{
 			AssetListStore = dlayer.GetAssets (projID);
 				
@@ -166,11 +171,18 @@ namespace Gothenburg
 //			filter.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree);
 //			tree.Model = filter;
 //			tree.Model = AssetListStore;
-		}
+		}*/
 		
 		void OnAddClicked (object obj, EventArgs args)
 		{
 			dlayer.GetAllNotes (projID);
+			
+			/*filter = new Gtk.TreeModelFilter (dlayer.GetAssets (projID), null);
+			filter.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree);
+			tree.Model = filter;*/
+			
+			tree.Model = dlayer.GetAssets (projID);
+			
 			//UpdateModel (projID);
 			
 			/*Gtk.ListStore AssetListStore = new Gtk.ListStore (typeof (Asset));
@@ -187,6 +199,7 @@ namespace Gothenburg
 		void OnMinusClicked (object obj, EventArgs args)
 		{
 		      	TreeSelection sel = tree.Selection;
+                      	
                       	/*TreeIter iter;
                 	TreeModel model;
                 	if (sel.GetSelected (out model, out iter))
@@ -255,13 +268,12 @@ namespace Gothenburg
 				selector.AppendText (project);
 			}
 			selector.Changed += new EventHandler (OnSelectorChanged);
-			selector.Active = projID;
 			
 			//ListStore AssetListStore = dlayer.GetAssets (projID);			
 			/*filter = new Gtk.TreeModelFilter (AssetListStore, null);
 			filter.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree);
-			tree.Model = filter;*/
-			tree.Model = AssetListStore;
+			tree.Model = filter;*/			
+			tree.Model = dlayer.GetAssets (projID);
 					
 			tree.AppendColumn (iconCol);
 			tree.AppendColumn (primCol);
