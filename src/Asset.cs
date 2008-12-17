@@ -27,39 +27,39 @@ using Mono.Unix;
 
 namespace Gothenburg
 {
-	using AssetProvider;
-	
-	public class Asset
-	{
-		public string Type;
-	 	public Gdk.Pixbuf Icon;
-	 	public string Link;
-	 	public string Primary;
-	 	public string Secondary;
-	 	
-		public Asset (string providertype, Gdk.Pixbuf providericon, string resourcelink, string primary, string secondary)
-		//public Asset (string providertype, string resourcelink, string primary, string secondary)
-		{
-			this.Type = providertype;
-			this.Icon = providericon;
-			this.Link = resourcelink;
-			this.Primary = primary;
-			this.Secondary = secondary;
-		}
-		
-		public void Open ()
-		{
-			if(this.Type == "Tomboy")
-			{
-				AssetProvider.Tomboy tomboy = new AssetProvider.Tomboy ();  
-	     			tomboy.init();
-				tomboy.open (tomboy.retrieve_by_name(this.Primary));
-			}
-		}
-		
-		public string GetPrimary ()
-		{
-			return this.Primary;
-		}
-	}
+  using AssetProvider;
+
+  public class Asset
+  {
+    public string Type;
+    public Gdk.Pixbuf Icon;
+    public string Link;
+    public string Primary;
+    public string Secondary;
+
+    public Asset (string providertype, Gdk.Pixbuf providericon, string resourcelink, string primary, string secondary)
+    //public Asset (string providertype, string resourcelink, string primary, string secondary)
+    {
+      this.Type = providertype;
+      this.Icon = providericon;
+      this.Link = resourcelink;
+      this.Primary = primary;
+      this.Secondary = secondary;
+    }
+
+    public void Open ()
+    {
+      if(this.Type == "Tomboy")
+      {
+        AssetProvider.Tomboy tomboy = new AssetProvider.Tomboy ();
+        tomboy.init();
+        tomboy.open (tomboy.retrieve_by_name(this.Primary));
+      }
+    }
+    
+    public string GetPrimary ()
+    {
+      return this.Primary;
+    }
+  }
 }

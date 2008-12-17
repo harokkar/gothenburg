@@ -1,22 +1,225 @@
+Author: Clemens N. Buss <cebuzz@gmail.com>
+Date:   Wed Dec 17 19:23:09 2008 +0100
+
+    *modified:   Gui.cs
+    Feature freeze for AFST course first delivery. Selector doesn't work anymore with new
+    DataLayer and is thus uncommented for now.
+
+Author: Clemens N. Buss <cebuzz@gmail.com>
+Date:   Wed Dec 17 18:36:21 2008 +0100
+
+    * modified:   Gui.cs
+    * modified:   DataLayer.cs
+    Almost there: DataLayer Abstraction is used in Gui. Missing is the
+    support for the Filter.
+
+Author: Clemens N. Buss <cebuzz@gmail.com>
+Date:   Wed Dec 17 16:16:12 2008 +0100
+
+  * modified:   ../configure.in
+  * modified:   Asset.cs
+  * modified:   AssetProvider.cs
+  * modified:   Gothenburg.cs
+  * modified:   Gui.cs
+  * modified:   Makefile.am
+  DataLayer improvements. Funcitonality back to what it was before (selector, different projects, are OK)
+
+Author: Clemens N. Buss <cebuzz@gmail.com>
+Date:   Wed Dec 17 02:58:19 2008 +0100
+ 
+  * modified:   AssetProvider.cs
+  * modified:   Gui.cs
+  * new file:   DataLayer.cs
+  Added Toolbar, work on showing all notes and making toolbar buttons
+  useful
+
+
+Author: Clemens N. Buss <cebuzz@gmail.com>
+Date:   Tue Dec 16 03:18:40 2008 +0100
+
+  * modified:   DBOperations.cs
+  * modified:   Gui.cs
+  * modified:   Makefile.am
+  Gui project support: change event in ComboBox changes Treeview of assets
+
+Author: Clemens N. Buss <cebuzz@gmail.com>
+Date:   Mon Dec 15 18:09:49 2008 +0100
+
+  * new file:   lipsticktower.jpg
+  Add Lipsticktower image for the fun of it
+
+
+Author: Clemens N. Buss <cebuzz@gmail.com>
+Date:   Mon Dec 15 18:05:04 2008 +0100
+
+  * modified:   ../README
+  * modified:   Asset.cs
+  * modified:   AssetProvider.cs
+  * modified:   Gothenburg.cs
+  * modified:   Gui.cs
+  Gui: Added first ComboBox functionality, fixed IconSize, window.Title s change
+  Asset class changed.
+  AssetProvider class changed.
+
+Author: Clemens N. Buss <cebuzz@gmail.com>
+Date:   Wed Dec 3 13:31:37 2008 +0100
+
+  * modified:   AssetProvider.cs
+  * modified:   Gothenburg.cs
+  * modified:   Gui.cs
+  * new file:   Icon.xpm
+  Added Events: Mockup for opening from the work. Close Button works.
+
+Author: Clemens N. Buss <cebuzz@gmail.com>
+Date:   Wed Dec 3 03:06:57 2008 +0100
+
+  * new file:   Asset.cs
+	* modified:   Gui.cs
+  * modified:   Makefile.am
+  Improvements on GUI mechanics
+
+Author: Clemens N. Buss <cebuzz@gmail.com>
+Date:   Fri Nov 28 00:50:46 2008 +0100
+    
+    * modified:   configure.in
+    * modified:   src/Gothenburg.cs
+    * new file:   src/Gui.cs
+    * new file:   src/Icon.png
+    * modified:   src/Makefile.am
+    First GUI stuff, very ruff indeed, yet
+
+Author: Clemens N. Buss <cebuzz@gmail.com>
+Date:   Fri Nov 21 18:07:03 2008 +0100
+
+  * modified:   INSTALL
+ 	* modified:   README
+ 	Updated documentation
+ 	
+ 	* modified:   configure.in
+ 	* modified:   report.sh
+ 	Possibility to do reports works now properly
+ 	
+ 	* modified:   src/AssetProvider.cs
+ 	* modified:   src/DBOperations.cs
+ 	* modified:   src/Gothenburg.cs
+ 	* modified:   test/DBOperationsTests.cs
+ 	Refactoring
+  
+  * modified:   test/Makefile.am
+  Added some pkg-magic
+
+Author: Clemens N. Buss <cebuzz@gmail.com>
+Date:   Fri Nov 21 16:35:20 2008 +0100
+
+  * modified:   ../configure.in
+  * modified:   Makefile.am
+  Install process should work now properly
+
+Author: Clemens N. Buss <cebuzz@gmail.com>
+Date:   Fri Nov 21 15:27:40 2008 +0100
+
+  * new file:   resources/gbg.cfg
+  * renamed:    ressources/gbg_raw.db -> resources/gbg_raw.db
+  * modified:   src/Gothenburg.cs
+  Minor cleanups and generalizations
+  
+  * modified:   Makefile.am
+  * new file:   resources/Makefile.am
+  * modified:   src/Makefile.am
+  Getting rid of some errors in build process
+  
+  * modified:   test/DBOperationsTests.cs
+  * modified:   test/Makefile.am
+  Test framework is installed
+
+Author: Clemens N. Buss <cebuzz@gmail.com>
+Date:   Wed Nov 19 14:42:58 2008 +0100
+
+	* renamed:    test/DBoperationsTests.cs -> test/DBOperationsTests.cs
+	* modified:   src/Makefile.am
+	* modified:   test/DBOperationsTests.cs
+	* modified:   test/Makefile.am
+  AutoFoo works now properly
+
+Author: Clemens N. Buss <cebuzz@gmail.com>
+Date:   Wed Nov 19 13:39:36 2008 +0100
+
+  * modified:   AssetProvider.cs
+  * modified:   DBOperations.cs
+  * modified:   Gothenburg.cs
+  * renamed:    ../test/db_operationsTests.cs -> ../test/DBoperationsTests.cs
+  Refactoring, code cleanups
+
+2008-11-19 Clemens N. Buss <cebuzz@gmail.com>
+
+  * modified:   ../README
+  * modified:   ../gen-configure.sh
+  * modified:   AssetProvider.cs
+  * modified:   DBOperations.cs
+  * modified:   Gothenburg.cs
+  * modified:   Makefile.am
+  Major refactoring. Code looks much slicker but not good enough, yet.
+
+2008-11-18 Clemens N. Buss <cebuzz@gmail.com>
+
+  * renamed:    asset_provider.cs -> AssetProvider.cs
+  * renamed:    db_operations.cs -> DBOperations.cs
+  * renamed:    gothenburg.cs -> Gothenburg.cs
+  * modified:   ../README
+  * modified:   ../gen-configure.sh
+  * modified:   AssetProvider.cs
+  * modified:   DBOperations.cs
+  * modified:   Gothenburg.cs
+  * modified:   Makefile.am
+  Cleanup of filenames; applying coding standards
+
+2008-11-18  Clemens N. Buss <cebuzz@gmail.com>
+
+  * new file:   HACKING
+  file without much information, yet
+
+2008-11-18 Clemens N. Buss <cebuzz@gmail.com>
+
+  * new file: AUTHORS
+  * new file: COPYING
+  * new file: ChangeLog
+  * new file: INSTALL
+  * new file: Makefile.am
+  * new file: NEWS
+  * new file: README
+  * new file: build.sh
+  * new file: configure.in
+  * new file: gen-configure.sh
+  * new file: report.sh
+  * new file: ressources/gbg_raw.db
+  * new file: src/Makefile.am
+  * new file: src/asset_provider.cs
+  * new file: src/db_operations.cs
+  * new file: src/gothenburg.cs
+  * new file: test/Makefile.am
+  * new file: test/db_operationsTests.cs
+  * new file: test/gbg.db
+  Initializing git - added files above
+
 2008-11-12  Clemens N. Buss  <cebuzz@gmail.com>
 
-	* configure.in
-	* Makefile.am, also in src/ and test/:
-	Added build process
+  * configure.in
+  * Makefile.am, also in src/ and test/:
+  Added build process
 
-	* test/db_operationsTests.cs
-	* test/Makefile.am
-	* report.sh:
-	Added rudimentary Profiling and Code Coverage support as well as a
-	trivial Unit Test to setup the framework
-
-2008-11-12  Clemens N. Buss  <cebuzz@gmail.com>
-	* src/Makefile.am:
-	Applied Henrik Sandklef's patch for make all target
+  * test/db_operationsTests.cs
+  * test/Makefile.am
+  * report.sh:
+  Added rudimentary Profiling and Code Coverage support as well as a
+  trivial Unit Test to setup the framework
 
 2008-11-12  Clemens N. Buss  <cebuzz@gmail.com>
+  * src/Makefile.am:
+  Applied Henrik Sandklef's patch for make all target
 
-	* src/asset_provider.cs
-	* src/db_operations.cs
-	* src/gothenburg.cs:
-	First classes, interfaces and "features" working, like database handling and the defintion of asset providers
+2008-11-12  Clemens N. Buss  <cebuzz@gmail.com>
+
+  * src/asset_provider.cs 
+  * src/db_operations.cs
+  * src/gothenburg.cs:
+  First classes, interfaces and "features" working, like database handling and the defintion of asset providers

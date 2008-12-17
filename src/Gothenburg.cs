@@ -25,15 +25,15 @@
 //some pseudocode mockups out of the top of my head
 //add tag für alle assets in tomboy+ other providers
 //if(true)
-//	add tag in db
-//	undo step in db
+//  add tag in db
+//  undo step in db
 //rem tags für alle betroffenen assets in tomboy+andere provider
 //if(true)
-//	rem tags in db
-//	undo step in db
+//  rem tags in db
+//  undo step in db
 //
-//	 def getProjectNoteURI(connection,name):
-//	 def getProjectNotes(projectName):
+//   def getProjectNoteURI(connection,name):
+//   def getProjectNotes(projectName):
 
 using System;
 using Mono.Data.Sqlite;
@@ -45,20 +45,19 @@ using GLib;
 namespace Gothenburg
 {
   class Gothenburg
-  { 
+  {
     /*void OnException (object o, UnhandledExceptionArgs args)
     {
       //ShowErrorDialog (args.ExceptionObject, args.IsTerminating);
       //args.ExitApplication = true;
     }*/
-   
+
     public static void Main(string[] args)
     {
       //string connectionString = "URI=file:/home/harlan/DEV/codename_gothenburg/gbg/test/gbg.db, version=3";
-	    //string connectionString = "Data Source=file:~/DEV/codename_gothenburg/gbg/gbg.db, version=3"; new assembly should work FIXME
-      
+      //string connectionString = "Data Source=file:~/DEV/codename_gothenburg/gbg/gbg.db, version=3"; new assembly should work FIXME
+
       //DBOperations dbo = new DBOperations (connectionString);
-	
       //Appropriate tables required to be created
       //dbo.projects_list();
       //Console.WriteLine (dbo.foo(1));
@@ -73,24 +72,24 @@ namespace Gothenburg
      Gtk.Application.Init ();
      BusG.Init ();
      new Gui ();
-     
+
      //UnhandledExceptionHandler h = new UnhandledExceptionHandler (OnException);
      //ExceptionManager.UnhandledException += h;
 
      Gtk.Application.Run ();
-     
-     
+
+
      /*AssetProvider.Tomboy tomboy = new AssetProvider.Tomboy ();  
      tomboy.init();
      string[] str = tomboy.retrieve_by_tag("FOO");
-     
+
      foreach (string Str in str)
      {
-     	Console.WriteLine (Str);
+       Console.WriteLine (Str);
      }*/
-     
+
      //Console.WriteLine (str[0]);
-                         
+
     //?? Service tomboy = Service.Get(sBbus,"org.gnome.Tomboy.Remote");
     }
   }
