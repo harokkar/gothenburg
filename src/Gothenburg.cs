@@ -40,11 +40,18 @@ using Mono.Data.Sqlite;
 using NDesk.DBus;
 using org.freedesktop.DBus;
 using Gothenburg.AssetProvider;
+using GLib;
 
 namespace Gothenburg
 {
   class Gothenburg
   { 
+    /*void OnException (object o, UnhandledExceptionArgs args)
+    {
+      //ShowErrorDialog (args.ExceptionObject, args.IsTerminating);
+      //args.ExitApplication = true;
+    }*/
+   
     public static void Main(string[] args)
     {
       //string connectionString = "URI=file:/home/harlan/DEV/codename_gothenburg/gbg/test/gbg.db, version=3";
@@ -66,6 +73,10 @@ namespace Gothenburg
      Gtk.Application.Init ();
      BusG.Init ();
      new Gui ();
+     
+     //UnhandledExceptionHandler h = new UnhandledExceptionHandler (OnException);
+     //ExceptionManager.UnhandledException += h;
+
      Gtk.Application.Run ();
      
      
