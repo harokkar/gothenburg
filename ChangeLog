@@ -1,4 +1,32 @@
 Author: Clemens N. Buss <cebuzz@gmail.com>
+Date:   Wed Dec 17 21:34:13 2008 +0100
+
+  * modified:   README
+  updated featureset, terminology
+   
+  * modified:   configure.in
+  version bump to 0.0.3
+    
+  * modified:   report.sh
+  should save the reports now, where it should
+    
+  * modified:   src/Gui.cs
+  nothing selected at the beginning
+
+Author: Clemens N. Buss <cebuzz@gmail.com>
+Date:   Wed Dec 17 20:29:10 2008 +0100
+
+  *  modified:   ChangeLog:
+  Written ChangeLog in retrospective from Commit-messages and know now why it sucks.
+    
+  *  modified:   src/Asset.cs
+  * modified:   src/AssetProvider.cs
+  * modified:   src/DBOperations.cs
+  * modified:   src/Gothenburg.cs
+  * modified:   src/Gui.cs:
+  Whitespace cleanups
+
+Author: Clemens N. Buss <cebuzz@gmail.com>
 Date:   Wed Dec 17 19:23:09 2008 +0100
 
     *modified:   Gui.cs
