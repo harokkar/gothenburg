@@ -47,10 +47,10 @@ namespace Gothenburg
   { 
     public static void Main(string[] args)
     {
-      string connectionString = "URI=file:/home/harlan/DEV/codename_gothenburg/gbg/test/gbg.db, version=3";
+      //string connectionString = "URI=file:/home/harlan/DEV/codename_gothenburg/gbg/test/gbg.db, version=3";
 	    //string connectionString = "Data Source=file:~/DEV/codename_gothenburg/gbg/gbg.db, version=3"; new assembly should work FIXME
       
-      DBOperations dbo = new DBOperations (connectionString);
+      //DBOperations dbo = new DBOperations (connectionString);
 	
       //Appropriate tables required to be created
       //dbo.projects_list();
@@ -67,6 +67,7 @@ namespace Gothenburg
      BusG.Init ();
      new Gui ();
      Gtk.Application.Run ();
+     
      
      /*AssetProvider.Tomboy tomboy = new AssetProvider.Tomboy ();  
      tomboy.init();

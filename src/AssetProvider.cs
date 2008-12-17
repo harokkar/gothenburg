@@ -25,10 +25,7 @@ using System;
 using Mono.Data.Sqlite;
 using NDesk.DBus;
 using org.freedesktop.DBus;
-
-//using System.IO;
-//using System.Collections.Generic;
-//using System.Data;
+using Microsoft.Build.Utilities;
 
 namespace Gothenburg
 {
@@ -73,7 +70,7 @@ namespace AssetProvider
 	
 		public string get_primary_info(string resourcelink)
 		{
-			return "foobar";
+			return remote.GetNoteTitle (resourcelink);
 		}
 	
 	 	public string get_secondary_info(string resourcelink)
@@ -95,7 +92,6 @@ namespace AssetProvider
 		public string[] retrieve_by_tag(string tag)
 		{
       			return remote.GetAllNotesWithTag (tag);
-      			//return remote.ListAllNotes ();
 		}
 	
 		public string retrieve_by_name(string name)
@@ -108,10 +104,17 @@ namespace AssetProvider
 			return remote.Version ();
 		}
 		
-		public string[] get_all_notes (string query)
+		//FIXME Special, for 1st mockupversion: should be removed
+		public string[] query_notes (string query)
 		{
 			return remote.SearchNotes (query, false);
 		}
+		
+		public string[] show_all ()
+		{
+			return remote.ListAllNotes ();
+		}
+		
 		
 		RemoteControl remote;				//TODO: Perhaps use a constructor
 		static org.freedesktop.DBus.IBus sBus;
@@ -129,6 +132,7 @@ namespace AssetProvider
 			}	
 			catch (Exception e)
 			{
+				Console.WriteLine ("Exception when getting Tomboy.RemoteControl: {0}", e.Message);
 				//Logger.Error ("Exception when getting Tomboy.RemoteControl: {0}", e.Message);
 			}
 			return remoteControl;
@@ -145,6 +149,7 @@ namespace AssetProvider
 			string[] ListAllNotes ();
 			bool AddTagToNote (string uri, string tag_name);
 			string[] SearchNotes (string query, bool case_sensitive);
+			string GetNoteTitle (string uri);
 		}
 
 		public static void introspect()
@@ -158,90 +163,5 @@ namespace AssetProvider
 			Console.WriteLine ("xmlData: " + xmlData);
 		}
 	}
-
-	
-
-	// See: /tomboy-0.12.0/Tomboy$ vim RemoteControl.cs 
-
-
-	//conn = openTomboyConnection()
-
-	
-
-	//def createProjectNote(connection,name):
-	//	#FIXME: broken
-	//	print "Nothing found, creating a new one"
-	//	newNote=connection.CreateNamedNote(name)
-	//	connection.DisplayNote(newNote)
-
-	//def openProjectNote(noteURI):
-	//	openTomboyConnection().DisplayNote(noteURI)
-
-	/*namespace Tomboy
-	{
-		[Interface ("org.gnome.Tomboy.RemoteControl")]
-		public class RemoteControl : MarshalByRefObject
-		{
-			public RemoteControl()
-			{
-			}
-		
-			public string Version ()
-			{
-				return null;
-			}
-		
-			*/
-	//		public string CreateTask (string categoryName, string taskName,
-	//								  bool enterEditMode)
-	//		{
-	//			return null;
-	//		}
-	//		
-	//		public string[] GetCategoryNames ()
-	//		{
-	//			return null;
-	//		}
-	//		
-	//		public void ShowTasks ()
-	//		{
-	//		}
-	//	}
-	//}
-
-	//# Display the Start Here note
-	//tomboy.DisplayNote(tomboy.FindStartHereNote())
-
-	//# Display the title of every note
-	//for n in tomboy.ListAllNotes(): print tomboy.GetNoteTitle(n)
-
-	//# Display the contents of the note called Test
-	//print tomboy.GetNoteContents(tomboy.FindNote("Test"))
-
-	//# Add a tag to the note called Test
-	//tomboy.AddTagToNote(tomboy.FindNote("Test"), "sampletag")
-
-	//# Display the titles of all notes with the tag 'sampletag'
-	//for note in tomboy.GetAllNotesWithTag("sampletag"):
-	//  print tomboy.GetNoteTitle(note)
-
-	//# Print the XML data for the note called Test
-	//print tomboy.GetNoteCompleteXml(tomboy.FindNote("Test"))
-
-
-	//# Notify when a new note is created
-	//def onNoteAdded(n): print "Note created: %s" % n
-	//bus.add_signal_receiver(onNoteAdded,
-	//  dbus_interface="org.gnome.Tomboy.RemoteControl",
-	//  signal_name="NoteAdded")
-
-	//# Notify when a note is saved
-	//def onNoteSaved(n): print "Note %s saved!" % tomboy.GetNoteTitle(n)
-	//bus.add_signal_receiver(onNoteSaved,
-	//  dbus_interface="org.gnome.Tomboy.RemoteControl",
-	//  signal_name="NoteSaved")
-
-	//# Loop until manually terminated
-	//gobject.MainLoop().run()
 }
 }

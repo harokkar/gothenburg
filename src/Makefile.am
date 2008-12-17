@@ -43,6 +43,7 @@ ASSEMBLIES =    \
 	-r:Mono.Posix \
 	-r:Mono.Data.Sqlite.dll \
 	-pkg:gtk-sharp-2.0 \
+	-r:Microsoft.Build.Utilities.dll \
 	$(DBUS_LIBS) \
 	$(GTKSHARP_LIBS)
 

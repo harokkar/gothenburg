@@ -56,5 +56,10 @@ namespace Gothenburg
 				tomboy.open (tomboy.retrieve_by_name(this.Primary));
 			}
 		}
+		
+		public string GetPrimary ()
+		{
+			return this.Primary;
+		}
 	}
 }

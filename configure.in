@@ -32,6 +32,24 @@ AC_SUBST(NUNIT_LIBS)
 AC_PATH_PROG(NUNIT, nunit-console)
 
 
+required_assemblies="Microsoft.Build.Utilities"
+
+for asm in $required_assemblies
+do
+  AC_MSG_CHECKING([for Mono 2.0 GAC for $asm.dll])
+  if test \
+    -e "$($PKG_CONFIG --variable=libdir mono)/mono/2.0/$asm.dll" -o \
+    -e "$($PKG_CONFIG --variable=prefix mono)/lib/mono/2.0/$asm.dll"; \
+  then \
+    AC_MSG_RESULT([found])
+  else
+    AC_MSG_RESULT([not found])
+    AC_MSG_ERROR([missing reqired Mono 2.0 assembly: $asm.dll])
+  fi  
+done
+
+
+
 AC_PROG_MAKE_SET
                        
 dnl read Makefile.in and write Makefile

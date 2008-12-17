@@ -96,7 +96,6 @@ namespace Gothenburg
         			return;
      
      			Asset asset = (Asset) model.GetValue (iter, 0);
-     			//ITask task = model.GetValue (iter, 0) as ITask;
       			if (asset == null)
        				return;
 
@@ -119,29 +118,78 @@ namespace Gothenburg
 		        	window.Title = title + " - Gothenburg";     	
 		        	
 		        	if(title == "AFST")
-		        		projID = 1;
+		        		projID = 0;
 		        	if(title == "Friends Of GNOME Website")
-		        		projID = 2;		        	
+		        		projID = 1;		        	
 		        	if(title == "Free Desktop Summit Gran Canaria")
-		        		projID = 3;
+		        		projID = 2;
 		        	
-		        	assets = DataLayer.GetAssets(projID);
+
+				DataLayer dlayer = new DataLayer ();
+		        	//assets = dlayer.GetAssets(projID);
+		        	//ArrayList proj = dlayer.projects;
+
+		        	Gtk.ListStore AssetListStore = dlayer.GetAssets (projID);
+		        	//Gtk.ListStore AssetListStore = dlayer.assets;
 		        	
-		        	Gtk.ListStore AssetListStore = new Gtk.ListStore (typeof (Asset));
-				foreach (Asset asset in assets)
+		        	
+		        	//Gtk.ListStore AssetListStore = new Gtk.ListStore (typeof (Asset));
+				//foreach (ArrayList projs in proj)
+				//{
+				//	foreach (Asset asset in projs)
+				/*foreach (Asset asset in assets)				
 				{
+					//Console.WriteLine(asset.Primary);
 					AssetListStore.AppendValues (asset);				
-				}
-			
+				}*/
+				//}
+				
 				filter = new Gtk.TreeModelFilter (AssetListStore, null);
 				filter.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree);
-				tree.Model = filter;	//tree.Model = AssetListStore;	
+				tree.Model = filter;
+				//tree.Model = AssetListStore;
 		        }
 		}
+		
+		void OnAddClicked (object obj, EventArgs args)
+		{
+			assets = DataLayer.GetAllNotes ();
+			
+			Gtk.ListStore AssetListStore = new Gtk.ListStore (typeof (Asset));
+			foreach (Asset asset in assets)
+			{
+				AssetListStore.AppendValues (asset);				
+			}
+		
+			filter = new Gtk.TreeModelFilter (AssetListStore, null);
+			filter.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree);
+			tree.Model = filter;	//tree.Model = AssetListStore;	
+		}
+		
+		void OnMinusClicked (object obj, EventArgs args)
+		{
+		      	TreeSelection sel = tree.Selection;
+                      	/*TreeIter iter;
+                	TreeModel model;
+                	if (sel.GetSelected (out model, out iter))
+		        {
+		                Asset val = (Asset) model.GetValue (iter, 0);
+		                Console.WriteLine ((string) val.Link );
+		        }
+		        */
+		        
+		        //This gives the index of the selected item in the TreeView
+			if(sel.CountSelectedRows () != 0)
+			{        
+				TreePath[] path; // = new TreePath ();
+				path = sel.GetSelectedRows ();
+				Console.WriteLine (path[0].Indices[0]);
+			}
+		}
+
 
 		public Gui ()
 		{
-
 			window.SetSizeRequest (300, 500);
                         window.DeleteEvent += DeleteEvent;
                         window.Icon = new Gdk.Pixbuf ("lipsticktower.jpg");	//Kalle, Andreas :: Call for Icon!
@@ -200,7 +248,9 @@ namespace Gothenburg
 			Toolbar tool = new Toolbar ();
 			
 			ToolButton plus = new ToolButton (Gtk.Stock.Add);
+			plus.Clicked +=  OnAddClicked;
 			ToolButton minus = new ToolButton (Gtk.Stock.Remove);
+			minus.Clicked +=  OnMinusClicked;
 	     		
 			box.PackStart (menu, false, true, 0);
 			box.PackStart (tool, false, true, 0);
