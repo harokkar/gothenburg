@@ -12,10 +12,13 @@ cd ..
 
 
 echo "* Creating code coverage report ... \n"
-mono --debug --profile=cov:gothenburg ./src/gothenburg.exe | tee report/CodeCoverage_Report.txt
+cd src/
+mono --debug --profile=cov:gothenburg ./gothenburg.exe | tee ../report/CodeCoverage_Report.txt
+cd ..
 echo "\n"
 
 echo "* Profiling the application ... \n"
-mono --profile=default:stat,alloc,file=report/Profiling_Report.txt src/gothenburg.exe
-
+cd src/
+mono --profile=default:stat,alloc,file=../report/Profiling_Report.txt gothenburg.exe
+cd ..
 echo "\n"

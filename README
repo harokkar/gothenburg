@@ -10,5 +10,23 @@ To create code coverage, profiling and unit test reports, do:
   
   
 Check: http://identi.ca/gothenburg & http://github.com/harokkar/gothenburg & http://twitter.com/goburg
-  
-##Terminology of the project: Asset, Project, ...
+
+
+
+Terminology of the project:
+
+* An asset is one element of a project. An asset may come form any kind of Data Source or "Asset Provider". At the moment only Tomboy is supported.
+
+* A project is a collection of assets, which all belong to one task. So a project may combine (in the future) EMails, contacts, notes and for instances images. Of course what is a project will be user-definable.
+
+
+
+Current Featureset:
+
+* The menu bar does not have any function yet.
+* Neither has the status bar at the bottom - it only gives a nice hotspot for resizing the window.
+
+* The plus button will add all notes which are in tomboy to one of the existing projects.
+* The minus button will delete a select asset from the project.
+
+* Projects with their assets are currently not saved.

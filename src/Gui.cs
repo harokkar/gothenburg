@@ -38,7 +38,7 @@ namespace Gothenburg
     //Array assets;
     ArrayList projects;
     DataLayer dlayer = new DataLayer ();
-    int projID = 0;
+    int projID = -1;
     //Store AssetStore;
     
     
@@ -273,7 +273,7 @@ namespace Gothenburg
       /*filter = new Gtk.TreeModelFilter (AssetStore, null);
       filter.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree);
       tree.Model = filter;*/
-      tree.Model = dlayer.GetAssets (projID);
+      //tree.Model = dlayer.GetAssets (projID);
       
       tree.AppendColumn (iconCol);
       tree.AppendColumn (primCol);

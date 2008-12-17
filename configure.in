@@ -1,6 +1,6 @@
 AC_INIT(gothenburg, 0.0.1, cebuzz@gmail.com)
 #AC_CONFIG_SRCDIR(src/gothenburg.cs)
-AM_INIT_AUTOMAKE(gothenburg, 0.0.2)
+AM_INIT_AUTOMAKE(gothenburg, 0.0.3)
 AC_CONFIG_HEADER(config.h)
 AC_PROG_INSTALL
 
