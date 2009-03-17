@@ -88,7 +88,8 @@ namespace Gothenburg
 
     public string[] retrieve_by_tag(string tag)
     {
-      return remote.GetAllNotesWithTag (tag);
+      //return remote.GetAllNotesWithTag (tag);
+      return remote.GetAllNotesInNotebook (tag);
     }
 
     public string retrieve_by_name(string name)
@@ -146,6 +147,10 @@ namespace Gothenburg
         bool AddTagToNote (string uri, string tag_name);
         string[] SearchNotes (string query, bool case_sensitive);
         string GetNoteTitle (string uri);
+        string GetNotebookForNote (string uri);
+        bool SetNotebookForNote (string uri, string NotebookName);
+        string[] GetAllNotesInNotebook (string NotebookName);
+
       }
 
       public static void introspect()
