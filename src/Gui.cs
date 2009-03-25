@@ -43,6 +43,7 @@ namespace Gothenburg
     
     
     Gtk.Window window = new Gtk.Window ("Gothenburg");
+    Gtk.Window window_addtag = new Gtk.Window ("Gothenburg");
   
     private void OnFilterEntryTextChanged (object Obj, System.EventArgs args)
     {
@@ -223,7 +224,14 @@ namespace Gothenburg
     public Gui ()
     {
       dlayer = new DataLayer ();
-
+      
+      window_addtag.SetSizeRequest (100, 100);
+      window.Icon = new Gdk.Pixbuf ("lipsticktower.jpg");  //Kalle, Andreas :: Call for Icon!
+      Gtk.Entry tagEntry = new Gtk.Entry ();
+      Gtk.VBox tagbox = new Gtk.VBox (false, 0);
+      tagbox.PackStart (tagEntry, true, true, 0);
+      window_addtag.Add (tagbox);
+      window_addtag.ShowAll ();
 
 
       window.SetSizeRequest (300, 500);

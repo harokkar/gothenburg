@@ -52,7 +52,8 @@ namespace Gothenburg
       //args.ExitApplication = true;
     }*/
 
-    public static void Main(string[] args)
+    //public static void Main(string[] args)
+    public static void Main()
     {
       //string connectionString = "URI=file:/home/harlan/DEV/codename_gothenburg/gbg/test/gbg.db, version=3";
       //string connectionString = "Data Source=file:~/DEV/codename_gothenburg/gbg/gbg.db, version=3"; new assembly should work FIXME
