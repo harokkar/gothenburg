@@ -244,7 +244,6 @@ namespace Gothenburg
       Gtk.ComboBox selector = ComboBox.NewText ();
       ScrolledWindow scroll = new ScrolledWindow ();
       filterEntry = new Gtk.Entry ();
-     filterEntry.PrimaryIcon = true ;
       filterEntry.MaxLength = 1;
       filterEntry.Changed += OnFilterEntryTextChanged;
       
