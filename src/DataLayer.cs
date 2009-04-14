@@ -33,7 +33,6 @@ namespace Gothenburg
     static int icon_width = 25;
     static int icon_height = 25; //TODO: BOTH LINES BACK to GUI
     static List<string> projects;
-    static IAssetProvider tomboy;
    
     /*public Gtk.ListStore assets
     {
@@ -50,11 +49,22 @@ namespace Gothenburg
     {
 	    projects = new List<string> ();
 
-      tomboy = new AssetProvider.Tomboy ();
-      tomboy.init();
+      /*tomboy = new AssetProvider.Tomboy ();
+      tomboy.init();*/
 
       projects.Add ("AFST2");
       projects.Add ("Friends Of GNOME Website");
+    }
+
+    public IAssetProvider AssetProviderType_GetInterface(string APType)
+    {
+      IAssetProvider IAP;
+      if(APType == "Tomboy")
+        IAP = new AssetProvider.Tomboy ();
+      else
+        return null;
+      IAP.init ();
+      return IAP;
     }
     
     public void DelAsset (TreePath path, int projID)
@@ -66,12 +76,12 @@ namespace Gothenburg
     
     public ListStore GetAssets(int projID)
     {
-
       ListStore assets = new Gtk.ListStore (typeof (Asset));
-      string [] notes = tomboy.retrieve_by_tag ("a");
+      IAssetProvider IAP = AssetProviderType_GetInterface("Tomboy");
+      string [] notes = IAP.retrieve_by_tag ("a");
       foreach (string note in notes)
       {
-       assets.AppendValues (new Asset("Tomboy", new Gdk.Pixbuf ("Icon.xpm", icon_width,icon_height), note, tomboy.get_primary_info(note), "14.04.2009"));
+       assets.AppendValues (new Asset("Tomboy", new Gdk.Pixbuf ("Icon.xpm", icon_width,icon_height), note, IAP.get_primary_info(note), "14.04.2009"));
       }
       return assets;
     }

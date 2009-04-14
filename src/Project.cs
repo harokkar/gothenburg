@@ -22,30 +22,35 @@
 
 
 using System;
+using System.Collections.Generic;
 using Gtk;
 using Mono.Unix;
+using Gothenburg.AssetProvider;
 
 namespace Gothenburg
 {
-  public struct Tag
+  struct Tag
   {
-    string AppID;
-    string AppTag;
+    public string AppID;
+    public string AppTag;
   }
 
   public class Project
   {
     public string Name;
-    public Tag [] TagsAssociated;
+    List<Tag> TagsAssociated;
 
     public Project (string Name)
     {
       this.Name = Name;
     }
 
-/*    public string GetPrimary ()
+    public void AddTag (string appID, string apptag)
     {
-      return this.Primary;
-    }*/
+      Tag tag;
+      tag.AppID = appID;
+      tag.AppTag = apptag;
+      this.TagsAssociated.Add (tag);
+    }
   }
 }

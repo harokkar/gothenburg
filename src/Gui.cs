@@ -35,11 +35,9 @@ namespace Gothenburg
     Gtk.TreeView tree = new Gtk.TreeView ();
     Gtk.Entry filterEntry;
     Gtk.TreeModelFilter filter;
-    //Array assets;
     string [] projects;
     DataLayer dlayer = new DataLayer ();
     int projID = -1;
-    //Store AssetStore;
     
     
     Gtk.Window window = new Gtk.Window ("Gothenburg");
@@ -122,7 +120,6 @@ namespace Gothenburg
         window.Title = title + " - Gothenburg";
 
         projID = combo.Active;
-        //Console.WriteLine (projID);
         //UpdateModel (); 
 
         /*filter = new Gtk.TreeModelFilter (dlayer.GetAssets (projID), null);
@@ -130,35 +127,6 @@ namespace Gothenburg
         tree.Model = filter;*/
 
         tree.Model = dlayer.GetAssets (projID);
-        //AssetStore = (Store) dlayer.GetAssets (projID);
-        //tree.Model = AssetStore;
-        
-        /*foreach (Asset asset in AssetStore)
-        Console.WriteLine ("a"+(string)asset.GetPrimary ());*/
-
-              /*if(title == "AFST")
-                projID = 0;
-              if(title == "Friends Of GNOME Website")
-                projID = 1;              
-              if(title == "Free Desktop Summit Gran Canaria")
-                projID = 2;*/
-                
-              //assets = dlayer.GetAssets(projID);
-              //Array proj = dlayer.projects;
-
-              //Gtk.Store AssetStore = dlayer.assets;
-              
-              //Gtk.Store AssetStore = new Gtk.Store (typeof (Asset));
-        //foreach (Array projs in proj)
-        //{
-        //  foreach (Asset asset in projs)
-        /*foreach (Asset asset in assets)
-        {
-          //Console.WriteLine(asset.Primary);
-          AssetStore.AppendValues (asset);
-        }*/
-        //}
-        //tree.Model = AssetStore;
       }
     }
     

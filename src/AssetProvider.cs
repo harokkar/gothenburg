@@ -48,16 +48,6 @@ namespace Gothenburg
       string version ();
     }
 
-    /*public IAssetProvider AssetProviderType_GetInterface(string APType)
-    {
-      IAssetProvider IAP;
-      if(APType == "Tomboy")
-        return IAP = new Tomboy ();
-
-      else
-        return null;
-    }*/
-
     public class Tomboy : IAssetProvider
     {
       public void init()
@@ -65,21 +55,20 @@ namespace Gothenburg
         remote = GetRemoteControl ();
       }
 
-    public void open(string resourcelink)
-    {
-      remote.DisplayNote (resourcelink);
+      public void open(string resourcelink)
+      {
+        remote.DisplayNote (resourcelink);
+      }
 
-    }
-
-    public string create()
-    {
-      return "foo";
-    }
+      public string create()
+      {
+        return "foo";
+      }
     
-    public string get_primary_info(string resourcelink)
-    {
-      return remote.GetNoteTitle (resourcelink);
-    }
+      public string get_primary_info(string resourcelink)
+      {
+        return remote.GetNoteTitle (resourcelink);
+      }
 
     public string get_secondary_info(string resourcelink)
     {
