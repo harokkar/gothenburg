@@ -48,6 +48,16 @@ namespace Gothenburg
       string version ();
     }
 
+    /*public IAssetProvider AssetProviderType_GetInterface(string APType)
+    {
+      IAssetProvider IAP;
+      if(APType == "Tomboy")
+        return IAP = new Tomboy ();
+
+      else
+        return null;
+    }*/
+
     public class Tomboy : IAssetProvider
     {
       public void init()

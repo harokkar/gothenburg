@@ -33,6 +33,7 @@ CSFLAGS =	\
 CSFILES =           \
 	$(srcdir)/Gothenburg.cs	\
 	$(srcdir)/Asset.cs \
+	$(srcdir)/Project.cs \
 	$(srcdir)/AssetProvider.cs	\
 	$(srcdir)/DBOperations.cs	\
 	$(srcdir)/DataLayer.cs \

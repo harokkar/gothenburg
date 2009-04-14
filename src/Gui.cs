@@ -176,7 +176,7 @@ namespace Gothenburg
     
     void OnAddClicked (object obj, EventArgs args)
     {
-      dlayer.GetAllNotes (projID);
+      //dlayer.GetAllNotes (projID);
       
       /*filter = new Gtk.TreeModelFilter (dlayer.GetAssets (projID), null);
       filter.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree);
@@ -272,7 +272,7 @@ namespace Gothenburg
       secCol.SetCellDataFunc (secInfoCell, new Gtk.TreeCellDataFunc (RenderSecondary));
       
 //      projects = DataLayer.GetProjects ();
-      projects = dlayer.GetProjects ();
+      projects = DataLayer.GetProjects ();
       foreach (string project in projects)
       {
 	Console.WriteLine (project);
