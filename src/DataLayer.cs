@@ -21,7 +21,7 @@
  ****/
 
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using Gtk;
 using Mono.Unix;
 
@@ -31,7 +31,8 @@ namespace Gothenburg
   {
     static int icon_width = 25;
     static int icon_height = 25; //TODO: BOTH LINES BACK to GUI
-    private ListStore [] projs;
+    ListStore [] projs;
+    List<string> projects;
    
     /*public Gtk.ListStore assets
     {
@@ -46,13 +47,14 @@ namespace Gothenburg
     
     public DataLayer ()
     {
-      //projects = new ArrayList ();
-      //ArrayList assets = new ArrayList ();
-      //Gtk.ListStore assets = new Gtk.ListStore (typeof (Asset));
-      
+	    projects = new List<string> ();
+
+      projects.Add ("AFST2");
+      projects.Add ("Friends Of GNOME Website");
+      projects.Add ("Free Desktop Summit Gran Canaria");
+
       projs = new ListStore [3];
       
-      //projs[0] = assets.Copy ();
       
       projs[0] = new Gtk.ListStore (typeof (Asset));
       for(int i=1; i<3; i++)
@@ -73,10 +75,6 @@ namespace Gothenburg
         projs[1].AppendValues (new Asset("Tomboy", new Gdk.Pixbuf ("Icon.xpm",icon_width,icon_height), "LinkFoo" ,"RD", "19.03.2008"));
         projs[1].AppendValues (new Asset("Tomboy", new Gdk.Pixbuf ("lipsticktower.jpg",icon_width,icon_height), "XX0" ,"XX0", "19.03.2008"));
       }
-      //projs [1] = assets;
-      //projects.Add (assets.Clone ());
-      //projs [1] = (ArrayList) assets.Clone ();
-      //assets.Clear ();
       
       projs[2] = new Gtk.ListStore (typeof (Asset));
       AssetProvider.Tomboy tomboy = new AssetProvider.Tomboy ();  
@@ -87,96 +85,36 @@ namespace Gothenburg
       {
         projs[2].AppendValues (new Asset("Tomboy", new Gdk.Pixbuf ("Icon.xpm", icon_width,icon_height), note, tomboy.get_primary_info(note), "12.12.2008"));
       }
-      //projects.Add (assets.Clone ());
-      //projs [2] = (ArrayList) assets.Clone ();
-      //assets.Clear ();*/
-      //projs = (ArrayList []) projects.ToArray ( typeof (ArrayList));*/
     }
     
-    public void DelAsset (TreePath path, int projID)
-    {
-      TreeIter iter;
+  public void DelAsset (TreePath path, int projID)
+  {
+    TreeIter iter;
       if(projs[projID].GetIter(out iter, path))
         projs[projID].Remove(ref iter);
-    }
+  }
     
-    public ListStore GetAssets(int projID)
-    {
-      //ListStore assets = new ArrayList ();
-      
-      /*if(projectID == 1)
-      {*/
-        /*for(int i=1; i<3; i++)
-        {
-        assets.Add (new Asset("Tomboy", new Gdk.Pixbuf ("Icon.xpm",icon_width,icon_height), "LinkFoo" ,"Meet Tom", "19.03.2008"));
-        assets.Add (new Asset("Tomboy", new Gdk.Pixbuf ("Icon.png",icon_width,icon_height), "LinkFoo" ,"Shop Groceries", "23.03.2008"));
-         assets.Add (new Asset("Tomboy", new Gdk.Pixbuf ("lipsticktower.jpg",icon_width,icon_height), "LinkFoo" ,"New Lipstick", "19.03.2008"));
-        }*/
-        //assets = projs[0].Clone ();
-        //return (ArrayList) projs [0];
-        
-      /*ListStore foo = new Gtk.ListStore (typeof (Asset));
-      foo = projs[projID];
-      return foo;*/
-      return projs[projID];
-      //}
-      
-      /*else if(projectID == 2)
-      {
-      for(int i=1; i<3; i++)
-        {
-        assets.Add (new Asset("Tomboy", new Gdk.Pixbuf ("Icon.png",icon_width,icon_height), "LinkFoo" ,"XPPD", "23.03.2008"));
-        assets.Add (new Asset("Tomboy", new Gdk.Pixbuf ("Icon.xpm",icon_width,icon_height), "LinkFoo" ,"RD", "19.03.2008"));
-         assets.Add (new Asset("Tomboy", new Gdk.Pixbuf ("lipsticktower.jpg",icon_width,icon_height), "XX0" ,"XX0", "19.03.2008"));
-        }
-      }
-      
-      else
-      {
-        AssetProvider.Tomboy tomboy = new AssetProvider.Tomboy ();  
-        tomboy.init();
-        string[] notes = tomboy.show_all ();
-       
-        foreach (string note in notes)
-             {
-        assets.Add (new Asset("Tomboy", new Gdk.Pixbuf ("Icon.xpm", icon_width,icon_height), note, tomboy.get_primary_info(note), "12.12.2008"));
-             }*/
-             
-        
-      /*for(int i=1; i<3; i++)
-        {
-        
-        assets.Add (new Asset("Tomboy", new Gdk.Pixbuf ("lipsticktower.jpg",icon_width,icon_height), "LinkFoo" ,"Lipstick", "19.03.2008"));
-        assets.Add (new Asset("Tomboy", new Gdk.Pixbuf ("Icon.xpm",icon_width,icon_height), "LinkFoo" ,"Tom", "19.03.2008"));
-        assets.Add (new Asset("Tomboy", new Gdk.Pixbuf ("Icon.png",icon_width,icon_height), "LinkFoo" ,"Groceries", "23.03.2008"));
-        }*/
-      //}
-      //return assets;
-    }
+  public ListStore GetAssets(int projID)
+  {
+    return projs[projID];
+  }
     
-    public static ArrayList GetProjects ()
-    {
-      ArrayList projects = new ArrayList ();
-      
-      projects.Add ("AFST");
-      projects.Add ("Friends Of GNOME Website");
-      projects.Add ("Free Desktop Summit Gran Canaria");
-      
-      return projects;
-    }
-    
-    //FIXME: for mockup
-    public void GetAllNotes (int projID)
-    {
-      //ArrayList list = new ArrayList ();      
-      AssetProvider.Tomboy tomboy = new AssetProvider.Tomboy ();  
-      tomboy.init();
-      string[] notes = tomboy.show_all ();
+  public string [] GetProjects ()
+  {
+    return projects.ToArray ();
+  }
+
+  public void GetAllNotes (int projID)
+  {
+    AssetProvider.Tomboy tomboy = new AssetProvider.Tomboy ();  
+    tomboy.init();
+	
+    string[] notes = tomboy.retrieve_by_tag("a");
      
-      foreach (string note in notes)
-      {
-        projs[projID].AppendValues (new Asset("Tomboy", new Gdk.Pixbuf ("Icon.xpm", icon_width,icon_height), note, tomboy.get_primary_info(note), "12.12.2008"));
-      }
+    foreach (string note in notes)
+    {
+      projs[projID].AppendValues (new Asset("Tomboy", new Gdk.Pixbuf ("Icon.xpm", icon_width,icon_height), note, tomboy.get_primary_info(note), "12.12.2008"));
     }
   }
+}
 }

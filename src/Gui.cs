@@ -36,7 +36,7 @@ namespace Gothenburg
     Gtk.Entry filterEntry;
     Gtk.TreeModelFilter filter;
     //Array assets;
-    ArrayList projects;
+    string [] projects;
     DataLayer dlayer = new DataLayer ();
     int projID = -1;
     //Store AssetStore;
@@ -271,10 +271,12 @@ namespace Gothenburg
       secCol.PackStart (secInfoCell, true);
       secCol.SetCellDataFunc (secInfoCell, new Gtk.TreeCellDataFunc (RenderSecondary));
       
-      projects = DataLayer.GetProjects ();
-      foreach (String project in projects)
+//      projects = DataLayer.GetProjects ();
+      projects = dlayer.GetProjects ();
+      foreach (string project in projects)
       {
-        selector.AppendText (project);
+	Console.WriteLine (project);
+      	selector.AppendText (project);
       }
       selector.Changed += new EventHandler (OnSelectorChanged);
       
