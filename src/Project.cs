@@ -29,7 +29,7 @@ using Gothenburg.AssetProvider;
 
 namespace Gothenburg
 {
-  struct Tag
+  public struct Tag
   {
     public string AppID;
     public string AppTag;
@@ -38,16 +38,17 @@ namespace Gothenburg
   public class Project
   {
     public string Name;
-    List<Tag> TagsAssociated;
+    public List<Tag> TagsAssociated;
 
     public Project (string Name)
     {
       this.Name = Name;
+      this.TagsAssociated = new List<Tag> ();
     }
 
     public void AddTag (string appID, string apptag)
     {
-      Tag tag;
+      Tag tag = new Tag ();
       tag.AppID = appID;
       tag.AppTag = apptag;
       this.TagsAssociated.Add (tag);

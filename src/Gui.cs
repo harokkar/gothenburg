@@ -239,8 +239,7 @@ namespace Gothenburg
       secCol.PackStart (secInfoCell, true);
       secCol.SetCellDataFunc (secInfoCell, new Gtk.TreeCellDataFunc (RenderSecondary));
       
-//      projects = DataLayer.GetProjects ();
-      projects = DataLayer.GetProjects ();
+      projects = DataLayer.GetProjectNames ();
       foreach (string project in projects)
       {
 	Console.WriteLine (project);

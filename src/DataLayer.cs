@@ -32,7 +32,7 @@ namespace Gothenburg
   {
     static int icon_width = 25;
     static int icon_height = 25; //TODO: BOTH LINES BACK to GUI
-    static List<string> projects;
+    static List<Project> projects;
    
     /*public Gtk.ListStore assets
     {
@@ -47,13 +47,20 @@ namespace Gothenburg
     
     public DataLayer ()
     {
-	    projects = new List<string> ();
+      projects = new List<Project> ();
+     
+     
+     //TODO: LEAKY
+      Project Neu = new Project ("Foo");
+      Neu.AddTag ("Tomboy", "a");
+      projects.Add (Neu);
+      
+      Project Neu2 = new Project ("Bar");
+      Neu2.AddTag ("Tomboy", "abc");
+      projects.Add (Neu2);
+//      projects.Add ("Foo Project");
 
-      /*tomboy = new AssetProvider.Tomboy ();
-      tomboy.init();*/
-
-      projects.Add ("AFST2");
-      projects.Add ("Friends Of GNOME Website");
+      Console.WriteLine (projects[0].Name);
     }
 
     public IAssetProvider AssetProviderType_GetInterface(string APType)
@@ -77,31 +84,23 @@ namespace Gothenburg
     public ListStore GetAssets(int projID)
     {
       ListStore assets = new Gtk.ListStore (typeof (Asset));
-      IAssetProvider IAP = AssetProviderType_GetInterface("Tomboy");
-      string [] notes = IAP.retrieve_by_tag ("a");
+      IAssetProvider IAP = AssetProviderType_GetInterface(projects[projID].TagsAssociated[0].AppID);
+     // IAssetProvider IAP = AssetProviderType_GetInterface( "Tomboy");
+      string [] notes = IAP.retrieve_by_tag (projects[projID].TagsAssociated[0].AppTag);
       foreach (string note in notes)
       {
-       assets.AppendValues (new Asset("Tomboy", new Gdk.Pixbuf ("Icon.xpm", icon_width,icon_height), note, IAP.get_primary_info(note), "14.04.2009"));
+        assets.AppendValues (new Asset("Tomboy", new Gdk.Pixbuf ("Icon.xpm", icon_width,icon_height), note, IAP.get_primary_info(note), "14.04.2009"));
       }
       return assets;
     }
     
-    public static string [] GetProjects ()
-    {
-      return projects.ToArray ();
-    }
+    public static string [] GetProjectNames ()
+    { 
+      List<string> projects_string = new List<string> ();
+      foreach (Project project in projects)
+        projects_string.Add (project.Name);
 
-    /*public void GetAllNotes (int projID)
-    {
-      AssetProvider.Tomboy tomboy = new AssetProvider.Tomboy ();  
-      tomboy.init();
-	
-      string[] notes = tomboy.retrieve_by_tag("a");
-     
-      foreach (string note in notes)
-      {
-        projs[projID].AppendValues (new Asset("Tomboy", new Gdk.Pixbuf ("Icon.xpm", icon_width,icon_height), note, tomboy.get_primary_info(note), "12.12.2008"));
-      }
-    }*/
+      return projects_string.ToArray ();
+    }
   }
 }
