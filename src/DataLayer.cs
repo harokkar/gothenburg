@@ -76,9 +76,9 @@ namespace Gothenburg
     
     public void DelAsset (TreePath path, int projID)
     {
-    /*  TreeIter iter;
-        if(projs[projID].GetIter(out iter, path))
-          projs[projID].Remove(ref iter);*/
+    /*TreeIter iter;
+      if(projs[projID].GetIter(out iter, path))
+        projs[projID].Remove(ref iter);*/
     }
     
     public ListStore GetAssets(int projID)
@@ -99,7 +99,6 @@ namespace Gothenburg
       List<string> projects_string = new List<string> ();
       foreach (Project project in projects)
         projects_string.Add (project.Name);
-
       return projects_string.ToArray ();
     }
   }
