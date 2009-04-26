@@ -22,3 +22,6 @@ stamp-h1
 test/Makefile
 test/Makefile.in
 test/gothenburg.exe                           
+report/CodeCoverage_Report.txt
+report/Profiling_Report.txt
+report/UnitTest_Report.txt
