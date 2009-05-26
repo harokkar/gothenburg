@@ -84,12 +84,18 @@ namespace Gothenburg
     public ListStore GetAssets(int projID)
     {
       ListStore assets = new Gtk.ListStore (typeof (Asset));
-      IAssetProvider IAP = AssetProviderType_GetInterface(projects[projID].TagsAssociated[0].AppID);
-     // IAssetProvider IAP = AssetProviderType_GetInterface( "Tomboy");
-      string [] notes = IAP.retrieve_by_tag (projects[projID].TagsAssociated[0].AppTag);
-      foreach (string note in notes)
+      IAssetProvider IAP;
+      
+      foreach (Tag tag in projects[projID].TagsAssociated)
       {
-        assets.AppendValues (new Asset("Tomboy", new Gdk.Pixbuf ("Icon.xpm", icon_width,icon_height), note, IAP.get_primary_info(note), "14.04.2009"));
+        //IAP = AssetProviderType_GetInterface(projects[projID].TagsAssociated[0].AppID);
+        IAP = AssetProviderType_GetInterface(tag.AppID);
+        //string [] notes = IAP.retrieve_by_tag (projects[projID].TagsAssociated[0].AppTag);
+        string [] notes = IAP.retrieve_by_tag (tag.AppTag);
+        foreach (string note in notes)
+        {
+          assets.AppendValues (new Asset("Tomboy", new Gdk.Pixbuf ("Icon.xpm", icon_width,icon_height), note, IAP.get_primary_info(note), "14.04.2009"));
+        }
       }
       return assets;
     }
