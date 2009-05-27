@@ -32,7 +32,7 @@ namespace Gothenburg
   {
     static int icon_width = 25;
     static int icon_height = 25; //TODO: BOTH LINES BACK to GUI
-    static List<Project> projects;
+    static List<Project> projects, projects_new;
    
     /*public Gtk.ListStore assets
     {
@@ -48,6 +48,7 @@ namespace Gothenburg
     public DataLayer ()
     {
       projects = new List<Project> ();
+      projects_new = new List<Project> ();
      
      
      //TODO: LEAKY
@@ -99,6 +100,14 @@ namespace Gothenburg
       }
       return assets;
     }
+
+    public void AddProject()
+    {
+      Project Neu = new Project ("ABC");
+      Neu.AddTag ("Tomboy", "a");
+      projects.Add (Neu);
+      projects_new.Add (Neu);
+    }
     
     public static string [] GetProjectNames ()
     { 
@@ -107,5 +116,13 @@ namespace Gothenburg
         projects_string.Add (project.Name);
       return projects_string.ToArray ();
     }
+
+    public static string [] GetNewProjectNames ()
+    {   
+      List<string> projects_string = new List<string> ();
+      foreach (Project project in projects_new)
+        projects_string.Add (project.Name);
+      return projects_string.ToArray ();
+    }  
   }
 }

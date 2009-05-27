@@ -113,6 +113,12 @@ namespace Gothenburg
       if (obj == null)
         return;
       TreeIter iter;
+
+      projects = DataLayer.GetNewProjectNames (); 
+      foreach (string project in projects)
+      {   
+        combo.AppendText (project);
+      } 
       
       if (combo.GetActiveIter (out iter))
       {
@@ -151,6 +157,8 @@ namespace Gothenburg
       tree.Model = filter;*/
       
       tree.Model = dlayer.GetAssets (projID);
+      
+      dlayer.AddProject();
       
       //UpdateModel (projID);
       
@@ -242,10 +250,10 @@ namespace Gothenburg
       projects = DataLayer.GetProjectNames ();
       foreach (string project in projects)
       {
-	Console.WriteLine (project);
       	selector.AppendText (project);
       }
       selector.Changed += new EventHandler (OnSelectorChanged);
+
       
       //Store AssetStore = dlayer.GetAssets (projID);
       /*filter = new Gtk.TreeModelFilter (AssetStore, null);
