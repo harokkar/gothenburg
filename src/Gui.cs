@@ -35,7 +35,6 @@ namespace Gothenburg
     Gtk.TreeView tree = new Gtk.TreeView ();
     Gtk.Entry filterEntry;
     Gtk.TreeModelFilter filter;
-    string [] projects;
     DataLayer dlayer = new DataLayer ();
     int projID = -1;
     
@@ -108,17 +107,21 @@ namespace Gothenburg
     void OnSelectorChanged (object obj, EventArgs args)
     {
       string title;
+      string [] projects;
       ComboBox combo = obj as ComboBox;
       
       if (obj == null)
         return;
       TreeIter iter;
-
+      
+      Console.WriteLine ("foo");
       projects = DataLayer.GetNewProjectNames (); 
       foreach (string project in projects)
-      {   
+      {  
+        Console.WriteLine (project);
         combo.AppendText (project);
-      } 
+      }
+      projects = null;
       
       if (combo.GetActiveIter (out iter))
       {
@@ -199,7 +202,8 @@ namespace Gothenburg
 
     public Gui ()
     {
-      dlayer = new DataLayer ();
+      string [] projects;
+      dlayer = new DataLayer (); //TODO: go static
       
       window_addtag.SetSizeRequest (100, 100);
       window.Icon = new Gdk.Pixbuf ("lipsticktower.jpg");  //Kalle, Andreas :: Call for Icon!
@@ -212,7 +216,7 @@ namespace Gothenburg
 
       window.SetSizeRequest (300, 500);
       window.DeleteEvent += DeleteEvent;
-      window.Icon = new Gdk.Pixbuf ("lipsticktower.jpg");  //Kalle, Andreas :: Call for Icon!
+      window.Icon = new Gdk.Pixbuf ("lipsticktower.jpg");
 
       Gtk.VBox box = new Gtk.VBox (false, 0);
       Gtk.HBox top = new Gtk.HBox (false, 0);
@@ -253,8 +257,12 @@ namespace Gothenburg
       	selector.AppendText (project);
       }
       selector.Changed += new EventHandler (OnSelectorChanged);
+//    Gtk.TreeIter active_iter=Gtk.TreeIter.Zero;   TODO: put selector first element
+//      Gtk.TreeIter active_iter = selector.GetActiveIter();
+//      Gtk.TreeIter active_iter;
+//      selector.GetActiveIter(active_iter);
+//      selector.SetActiveIter(active_iter);
 
-      
       //Store AssetStore = dlayer.GetAssets (projID);
       /*filter = new Gtk.TreeModelFilter (AssetStore, null);
       filter.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree);

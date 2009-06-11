@@ -52,16 +52,15 @@ namespace Gothenburg
      
      
      //TODO: LEAKY
-      Project Neu = new Project ("Foo");
-      Neu.AddTag ("Tomboy", "a");
-      projects.Add (Neu);
+      Project Neu1 = new Project ("Foo");
+      Neu1.AddTag ("Tomboy", "a");
+      projects.Add (Neu1);
       
       Project Neu2 = new Project ("Bar");
       Neu2.AddTag ("Tomboy", "abc");
       projects.Add (Neu2);
 //      projects.Add ("Foo Project");
-
-      Console.WriteLine (projects[0].Name);
+//      Console.WriteLine (projects[0].Name);
     }
 
     public IAssetProvider AssetProviderType_GetInterface(string APType)
@@ -101,12 +100,28 @@ namespace Gothenburg
       return assets;
     }
 
-    public void AddProject()
+    public bool AddProject()
     {
       Project Neu = new Project ("ABC");
       Neu.AddTag ("Tomboy", "a");
+      foreach (Project project in projects)
+      {
+        if(project.Name == Neu.Name)
+          return false;
+      }
       projects.Add (Neu);
       projects_new.Add (Neu);
+
+      return true;
+
+      /*if(!projects.Contains(Neu))  //TODO:Check for name. Tags should be irrelevant. Same name, different tags, doesnt make sense
+      {                             //TODO: do above via implementing the comparable  IFace
+        Console.WriteLine ("HAHA");
+        projects.Add (Neu);
+        projects_new.Add (Neu);
+      }
+      foreach (Project project in projects)
+        Console.WriteLine (project.Name);*/
     }
     
     public static string [] GetProjectNames ()
@@ -121,7 +136,11 @@ namespace Gothenburg
     {   
       List<string> projects_string = new List<string> ();
       foreach (Project project in projects_new)
+      {
         projects_string.Add (project.Name);
+        //Console.WriteLine ("%n", projects_new.Length );
+      }
+      projects_new.Clear();
       return projects_string.ToArray ();
     }  
   }
