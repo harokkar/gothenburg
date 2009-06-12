@@ -114,11 +114,9 @@ namespace Gothenburg
         return;
       TreeIter iter;
       
-      Console.WriteLine ("foo");
       projects = DataLayer.GetNewProjectNames (); 
       foreach (string project in projects)
       {  
-        Console.WriteLine (project);
         combo.AppendText (project);
       }
       projects = null;
@@ -159,10 +157,12 @@ namespace Gothenburg
       filter.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree);
       tree.Model = filter;*/
       
-      tree.Model = dlayer.GetAssets (projID);
-      
-      dlayer.AddProject();
-      
+      //tree.Model = dlayer.GetAssets (projID);
+
+      Project Neu = new Project ("ABC");
+      Neu.AddTag ("Tomboy", "a");
+      dlayer.AddProject(Neu);
+     
       //UpdateModel (projID);
       
       /*Gtk.Store AssetStore = new Gtk.Store (typeof (Asset));
@@ -257,11 +257,7 @@ namespace Gothenburg
       	selector.AppendText (project);
       }
       selector.Changed += new EventHandler (OnSelectorChanged);
-//    Gtk.TreeIter active_iter=Gtk.TreeIter.Zero;   TODO: put selector first element
-//      Gtk.TreeIter active_iter = selector.GetActiveIter();
-//      Gtk.TreeIter active_iter;
-//      selector.GetActiveIter(active_iter);
-//      selector.SetActiveIter(active_iter);
+      selector.Active = 1;
 
       //Store AssetStore = dlayer.GetAssets (projID);
       /*filter = new Gtk.TreeModelFilter (AssetStore, null);

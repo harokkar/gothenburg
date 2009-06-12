@@ -100,11 +100,9 @@ namespace Gothenburg
       return assets;
     }
 
-    public bool AddProject()
+    public bool AddProject(Project Neu)
     {
-      Project Neu = new Project ("ABC");
-      Neu.AddTag ("Tomboy", "a");
-      foreach (Project project in projects)
+      foreach (Project project in projects) //TODO: implement Comparable IF
       {
         if(project.Name == Neu.Name)
           return false;
@@ -113,15 +111,6 @@ namespace Gothenburg
       projects_new.Add (Neu);
 
       return true;
-
-      /*if(!projects.Contains(Neu))  //TODO:Check for name. Tags should be irrelevant. Same name, different tags, doesnt make sense
-      {                             //TODO: do above via implementing the comparable  IFace
-        Console.WriteLine ("HAHA");
-        projects.Add (Neu);
-        projects_new.Add (Neu);
-      }
-      foreach (Project project in projects)
-        Console.WriteLine (project.Name);*/
     }
     
     public static string [] GetProjectNames ()
