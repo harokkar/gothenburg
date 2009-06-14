@@ -20,8 +20,6 @@
  * MA  02110-1301, USA.                                              
  ****/
 
-
-
 //some pseudocode mockups out of the top of my head
 //add tag für alle assets in tomboy+ other providers
 //if(true)
@@ -46,52 +44,13 @@ namespace Gothenburg
 {
   class Gothenburg
   {
-    /*void OnException (object o, UnhandledExceptionArgs args)
-    {
-      //ShowErrorDialog (args.ExceptionObject, args.IsTerminating);
-      //args.ExitApplication = true;
-    }*/
-
-    //public static void Main(string[] args)
     public static void Main()
     {
-      //string connectionString = "URI=file:/home/harlan/DEV/codename_gothenburg/gbg/test/gbg.db, version=3";
-      //string connectionString = "Data Source=file:~/DEV/codename_gothenburg/gbg/gbg.db, version=3"; new assembly should work FIXME
-
-      //DBOperations dbo = new DBOperations (connectionString);
-      //Appropriate tables required to be created
-      //dbo.projects_list();
-      //Console.WriteLine (dbo.foo(1));
-      //projectid_get("foobar2");
-      //project_rem(10);
-
-     //BusG.Init ();
-     //tomboy.init();  //RemoteControl remote = AssetProvider.Tomboy.GetRemoteControl ();
-
-     //Console.WriteLine ("Tomboy Version: " + tomboy.version());
-
      Gtk.Application.Init ();
      BusG.Init ();
      new Gui ();
 
-     //UnhandledExceptionHandler h = new UnhandledExceptionHandler (OnException);
-     //ExceptionManager.UnhandledException += h;
-
      Gtk.Application.Run ();
-
-
-     /*AssetProvider.Tomboy tomboy = new AssetProvider.Tomboy ();  
-     tomboy.init();
-     string[] str = tomboy.retrieve_by_tag("FOO");
-
-     foreach (string Str in str)
-     {
-       Console.WriteLine (Str);
-     }*/
-
-     //Console.WriteLine (str[0]);
-
-    //?? Service tomboy = Service.Get(sBbus,"org.gnome.Tomboy.Remote");
     }
   }
 }

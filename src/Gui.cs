@@ -40,7 +40,7 @@ namespace Gothenburg
     
     
     Gtk.Window window = new Gtk.Window ("Gothenburg");
-    Gtk.Window window_addtag = new Gtk.Window ("Gothenburg");
+    //Gtk.Window window_addtag = new Gtk.Window ("Gothenburg");
   
     private void OnFilterEntryTextChanged (object Obj, System.EventArgs args)
     {
@@ -120,7 +120,7 @@ namespace Gothenburg
         combo.AppendText (project);
       }
       projects = null;
-      
+
       if (combo.GetActiveIter (out iter))
       {
         title = (string) combo.Model.GetValue (iter, 0);
@@ -180,15 +180,14 @@ namespace Gothenburg
     {
       TreeSelection sel = tree.Selection;
 
-                  /*TreeIter iter;
-                  TreeModel model;
-                  if (sel.GetSelected (out model, out iter))
-                  {
-                    Asset val = (Asset) model.GetValue (iter, 0);
-                    Console.WriteLine ((string) val.Link );
-            }
-            */
-           
+      /*TreeIter iter;
+      TreeModel model;
+      if (sel.GetSelected (out model, out iter))
+      {
+      Asset val = (Asset) model.GetValue (iter, 0);
+     Console.WriteLine ((string) val.Link );
+      }
+    */          
       //This gives the index of the selected item in the TreeView
       if(sel.CountSelectedRows () != 0)
       {
@@ -199,19 +198,18 @@ namespace Gothenburg
       }
     }
 
-
     public Gui ()
     {
       string [] projects;
       dlayer = new DataLayer (); //TODO: go static
       
-      window_addtag.SetSizeRequest (100, 100);
+      /*window_addtag.SetSizeRequest (100, 100);
       window.Icon = new Gdk.Pixbuf ("lipsticktower.jpg");  //Kalle, Andreas :: Call for Icon!
       Gtk.Entry tagEntry = new Gtk.Entry ();
       Gtk.VBox tagbox = new Gtk.VBox (false, 0);
       tagbox.PackStart (tagEntry, true, true, 0);
       window_addtag.Add (tagbox);
-      window_addtag.ShowAll ();
+      window_addtag.ShowAll ();*/
 
 
       window.SetSizeRequest (300, 500);
@@ -233,19 +231,19 @@ namespace Gothenburg
       tree.EnableSearch = false;
       tree.RowActivated += OnRowActivate;
 
-      Gtk.TreeViewColumn iconCol = new Gtk.TreeViewColumn ( );
+      Gtk.TreeViewColumn iconCol = new Gtk.TreeViewColumn ();
       iconCol.Title = "Icon";
       Gtk.CellRendererPixbuf iconCell = new Gtk.CellRendererPixbuf ();
       iconCol.PackStart (iconCell, true);
       iconCol.SetCellDataFunc (iconCell, new Gtk.TreeCellDataFunc (RenderIcon));
 
-      Gtk.TreeViewColumn primCol = new Gtk.TreeViewColumn ( );
+      Gtk.TreeViewColumn primCol = new Gtk.TreeViewColumn ();
       primCol.Title = "Primary Info";
       Gtk.CellRendererText primInfoCell = new Gtk.CellRendererText ();
       primCol.PackStart (primInfoCell, true);
       primCol.SetCellDataFunc (primInfoCell, new Gtk.TreeCellDataFunc (RenderPrimary));
 
-      Gtk.TreeViewColumn secCol = new Gtk.TreeViewColumn ( );
+      Gtk.TreeViewColumn secCol = new Gtk.TreeViewColumn ();
       secCol.Title = "Secondary Info";
       Gtk.CellRendererText secInfoCell = new Gtk.CellRendererText ();
       secCol.PackStart (secInfoCell, true);
