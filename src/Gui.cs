@@ -36,11 +36,10 @@ namespace Gothenburg
     Gtk.Entry filterEntry;
     Gtk.TreeModelFilter filter;
     DataLayer dlayer = new DataLayer ();
-    int projID = -1;
-    
+    int projID = 1;
     
     Gtk.Window window = new Gtk.Window ("Gothenburg");
-    //Gtk.Window window_addtag = new Gtk.Window ("Gothenburg");
+   // ProjectWindow window_addtag = new ProjectWindow ("Gothenburg");
   
     private void OnFilterEntryTextChanged (object Obj, System.EventArgs args)
     {
@@ -129,11 +128,9 @@ namespace Gothenburg
         projID = combo.Active;
         //UpdateModel (); 
 
-        /*filter = new Gtk.TreeModelFilter (dlayer.GetAssets (projID), null);
+        filter = new Gtk.TreeModelFilter (dlayer.GetAssets (projID), null);
         filter.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree);
-        tree.Model = filter;*/
-
-        tree.Model = dlayer.GetAssets (projID);
+        tree.Model = filter;
       }
     }
     
@@ -151,29 +148,11 @@ namespace Gothenburg
     
     void OnAddClicked (object obj, EventArgs args)
     {
-      //dlayer.GetAllNotes (projID);
-      
-      /*filter = new Gtk.TreeModelFilter (dlayer.GetAssets (projID), null);
-      filter.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree);
-      tree.Model = filter;*/
-      
-      //tree.Model = dlayer.GetAssets (projID);
+      ProjectWindow window_addtag = new ProjectWindow ("Gothenburg");
 
       Project Neu = new Project ("ABC");
       Neu.AddTag ("Tomboy", "a");
       dlayer.AddProject(Neu);
-     
-      //UpdateModel (projID);
-      
-      /*Gtk.Store AssetStore = new Gtk.Store (typeof (Asset));
-      foreach (Asset asset in assets)
-      {
-        AssetStore.AppendValues (asset);
-      }
-    
-      filter = new Gtk.TreeModelFilter (AssetStore, null);
-      filter.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree);
-      tree.Model = filter;  //tree.Model = AssetStore;  */
     }
     
     void OnMinusClicked (object obj, EventArgs args)
@@ -203,15 +182,6 @@ namespace Gothenburg
       string [] projects;
       dlayer = new DataLayer (); //TODO: go static
       
-      /*window_addtag.SetSizeRequest (100, 100);
-      window.Icon = new Gdk.Pixbuf ("lipsticktower.jpg");  //Kalle, Andreas :: Call for Icon!
-      Gtk.Entry tagEntry = new Gtk.Entry ();
-      Gtk.VBox tagbox = new Gtk.VBox (false, 0);
-      tagbox.PackStart (tagEntry, true, true, 0);
-      window_addtag.Add (tagbox);
-      window_addtag.ShowAll ();*/
-
-
       window.SetSizeRequest (300, 500);
       window.DeleteEvent += DeleteEvent;
       window.Icon = new Gdk.Pixbuf ("lipsticktower.jpg");
@@ -258,9 +228,9 @@ namespace Gothenburg
       selector.Active = 1;
 
       //Store AssetStore = dlayer.GetAssets (projID);
-      /*filter = new Gtk.TreeModelFilter (AssetStore, null);
+      //filter = new Gtk.TreeModelFilter (AssetStore, null);
       filter.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree);
-      tree.Model = filter;*/
+      //tree.Model = filter;
       //tree.Model = dlayer.GetAssets (projID);
       
       tree.AppendColumn (iconCol);
